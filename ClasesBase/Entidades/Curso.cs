@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ClasesBase.Entidades
 {
-    class Curso
+    public class Curso
     {
         public string Cur_ID { get; set; }
         public string Cur_Nombre { get; set; }

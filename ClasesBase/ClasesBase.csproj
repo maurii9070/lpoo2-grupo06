@@ -49,6 +49,9 @@
     <Compile Include="Entidades\Rol.cs" />
     <Compile Include="Entidades\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\RolRepository.cs" />
+    <Compile Include="Repositories\UsuarioRepository.cs" />
+    <Compile Include="Services\AuthService.cs" />
     <Compile Include="Utils\EstadoCurso.cs" />
     <Compile Include="Utils\EstadoInscripcion.cs" />
   </ItemGroup>

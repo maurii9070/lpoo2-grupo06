@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ClasesBase.Entidades
 {
-    class Rol
+    public class Rol
     {
         public int Rol_ID { get; set; }
         public string Rol_Descripcion { get; set; }

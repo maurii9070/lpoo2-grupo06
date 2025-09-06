@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ClasesBase.Entidades
 {
-    class Inscripcion
+    public class Inscripcion
     {
         public int Ins_ID { get; set; }
         public DateTime Ins_Fecha { get; set; }
