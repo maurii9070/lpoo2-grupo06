@@ -1,0 +1,37 @@
+# Archivos específicos de usuario de VS 2010/2012
+*.suo
+*.user
+*.sln.docstates
+*.userprefs
+
+# Resultados de compilación
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+build/
+bin/
+obj/
+[Bb]in/
+[Oo]bj/
+
+# Perfilador de VS
+*.psess
+*.vsp
+*.vspx
+
+# ClickOnce
+publish/
+
+# NuGet (por si acaso)
+packages/
+
+# Sistema operativo
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# Backups y temporales
+*.bak
+*.tmp
+*~
