@@ -1,0 +1,41 @@
+﻿<Window x:Class="Vistas.Alumnos.AltaAlumno"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="AltaAlumno" Height="416" Width="377">
+    <Border Background="#FFF0F5FF" CornerRadius="8" Padding="15" Margin="10">
+        <Grid>
+            <StackPanel>
+                <TextBlock Text="Alta de Alumno" FontWeight="Bold" FontSize="18" 
+                           Foreground="#FF1E3A8A" Margin="0 0 0 15" HorizontalAlignment="Center"/>
+
+                <Border CornerRadius="6" Background="White" Padding="15" Margin="0 0 0 10">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0 8">
+                            <TextBlock Text="DNI:" Width="100" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                            <TextBox x:Name="txtDNI" Width="200" Padding="4" BorderThickness="1" BorderBrush="#FFCCCCCC"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0 8">
+                            <TextBlock Text="Apellido:" Width="100" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                            <TextBox x:Name="txtApellido" Width="200" Padding="4" BorderThickness="1" BorderBrush="#FFCCCCCC"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0 8">
+                            <TextBlock Text="Nombre:" Width="100" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                            <TextBox x:Name="txtNombre" Width="200" Padding="4" BorderThickness="1" BorderBrush="#FFCCCCCC"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0 8">
+                            <TextBlock Text="Email:" Width="100" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                            <TextBox x:Name="txtEmail" Width="200" Padding="4" BorderThickness="1" BorderBrush="#FFCCCCCC"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+
+                <Button Content="Guardar Alumno" Width="120" Height="32" Margin="0 10" 
+                        Background="#FF1E3A8A" Foreground="White" FontWeight="Bold"
+                        Click="Guardar_Click" HorizontalAlignment="Center"/>
+            </StackPanel>
+        </Grid>
+    </Border>
+</Window>
