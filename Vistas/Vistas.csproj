@@ -62,6 +62,9 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Cursos\CursosView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Alumnos\AltaAlumno.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
