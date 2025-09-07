@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ClasesBase.Utils
 {
-    class EstadoCurso
+    public class EstadoCurso
     {
         public const string Programado = "programado";
         public const string EnCurso = "en_curso";

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ClasesBase.Utils
 {
-    class EstadoInscripcion
+    public class EstadoInscripcion
     {
         public const string Inscripto = "inscripto";
         public const string Confirmado = "confirmado";

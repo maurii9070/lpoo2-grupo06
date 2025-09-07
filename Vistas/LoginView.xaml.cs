@@ -25,6 +25,7 @@ namespace Vistas
         public LoginView()
         {
             InitializeComponent();
+            txtUsuario.Focus();
         }
 
         private void btnIngresar_Click(object sender, RoutedEventArgs e)
