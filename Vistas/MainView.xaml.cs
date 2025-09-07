@@ -10,6 +10,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Vistas.Docentes;
 
 namespace Vistas
 {
@@ -26,6 +27,11 @@ namespace Vistas
         private void btnSalir_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
+        }
+
+        private void MenuDocentes_Click(object sender, RoutedEventArgs e)
+        {
+            AreaContenido.Content = new DocentesView();
         }
     }
 }

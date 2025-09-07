@@ -8,7 +8,7 @@
         <Label Content="Contraseña" Height="28" HorizontalAlignment="Left" Margin="36,94,0,0" Name="lblContrasenia" VerticalAlignment="Top" />
         <TextBox Height="23" HorizontalAlignment="Left" Margin="117,56,0,0" Name="txtUsuario" VerticalAlignment="Top" Width="120" />
         <PasswordBox Height="23" HorizontalAlignment="Left" Margin="117,99,0,0" Name="txtPassword" VerticalAlignment="Top" Width="120" />
-        <Button Content="Ingresar" Height="23" HorizontalAlignment="Left" Margin="36,153,0,0" Name="btnIngresar" VerticalAlignment="Top" Width="83" Click="btnIngresar_Click" />
-        <Button Content="Salir" Height="23" HorizontalAlignment="Left" Margin="154,153,0,0" Name="btnSalir" VerticalAlignment="Top" Width="83" Click="btnCancelar_Click" />
+        <Button Content="Ingresar" Height="23" HorizontalAlignment="Left" Margin="36,153,0,0" Name="btnIngresar" VerticalAlignment="Top" Width="83" Click="btnIngresar_Click" IsDefault="True" />
+        <Button Content="Salir" Height="23" HorizontalAlignment="Left" Margin="154,153,0,0" Name="btnSalir" VerticalAlignment="Top" Width="83" Click="btnCancelar_Click" IsCancel="True"/>
     </Grid>
 </Window>
