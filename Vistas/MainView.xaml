@@ -44,7 +44,7 @@
             <Expander Header="Académico" IsExpanded="True" Margin="5 0 5 5">
                 <StackPanel Margin="15 5">
                     <Button Content="Cursos"   Height="30" Margin="0 2"/>
-                    <Button Content="Docentes" Height="30" Margin="0 2"/>
+                    <Button Content="Docentes" Height="30" Margin="0 2" Click="MenuDocentes_Click"/>
                     <Button Content="Alumnos"  Height="30" Margin="0 2"/>
                 </StackPanel>
             </Expander>
