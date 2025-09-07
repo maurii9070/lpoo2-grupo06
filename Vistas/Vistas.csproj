@@ -57,6 +57,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Cursos\AltaCursoView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Cursos\CursosView.xaml">
     <Page Include="Alumnos\AltaAlumno.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -86,6 +91,12 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Cursos\AltaCursoView.xaml.cs">
+      <DependentUpon>AltaCursoView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Cursos\CursosView.xaml.cs">
+      <DependentUpon>CursosView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Docentes\AltaDocenteView.xaml.cs">
       <DependentUpon>AltaDocenteView.xaml</DependentUpon>

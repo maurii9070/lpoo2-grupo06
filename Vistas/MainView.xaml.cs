@@ -11,7 +11,12 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Vistas.Docentes;
+
+using Vistas.Cursos;
+
+
 using Vistas.Alumnos;
+
 namespace Vistas
 {
     /// <summary>
@@ -33,9 +38,16 @@ namespace Vistas
         {
             AreaContenido.Content = new DocentesView();
         }
+
+        private void MenuCursos_Click(object sender, RoutedEventArgs e)
+        {
+            AreaContenido.Content = new CursosView();
+        }
+
         private void MenuAlumnos_Click(object sender, RoutedEventArgs e)
         {
             AreaContenido.Content = new GestionAlumnoView();
         }
+
     }
 }

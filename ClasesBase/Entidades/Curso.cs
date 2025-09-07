@@ -7,7 +7,7 @@ namespace ClasesBase.Entidades
 {
     public class Curso
     {
-        public string Cur_ID { get; set; }
+        public int Cur_ID { get; set; }
         public string Cur_Nombre { get; set; }
         public string Cur_Descripcion { get; set; }
         public int Cur_Cupo { get; set; }
