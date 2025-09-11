@@ -9,5 +9,6 @@ namespace ClasesBase.Entidades
     {
         public int Est_ID { get; set; }
         public string Est_Nombre { get; set; }
+        public int Esty_ID { get; set; }
     }
 }
