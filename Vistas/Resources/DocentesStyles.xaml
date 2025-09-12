@@ -1,0 +1,38 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!-- Estilo para TextBox Docente (Alta) -->
+    <Style x:Key="TextBoxDocente" TargetType="TextBox">
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontFamily" Value="Segoe UI"/>
+        <Setter Property="Background" Value="#F5F5F5"/>
+        <Setter Property="BorderBrush" Value="#CCCCCC"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Padding" Value="5"/>
+        <Setter Property="Margin" Value="0,0,0,10"/>
+    </Style>
+
+    <!-- Estilo para Button Alta Docente (Alta) -->
+    <Style x:Key="BotonDocenteGuardar" TargetType="Button">
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Background" Value="#007ACC"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Padding" Value="10,5"/>
+        <Setter Property="Margin" Value="5"/>
+        <Setter Property="BorderBrush" Value="#005A9E"/>
+        <Setter Property="BorderThickness" Value="1"/>
+    </Style>
+
+    <!-- Estilo para Button Cancelar Docente (Alta) -->
+    <Style x:Key="BotonDocenteCancelar" TargetType="Button">
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Background" Value="#cc0000"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Padding" Value="10,5"/>
+        <Setter Property="Margin" Value="5"/>
+        <Setter Property="BorderBrush" Value="#9e0000"/>
+        <Setter Property="BorderThickness" Value="1"/>
+    </Style>
+
+</ResourceDictionary>
