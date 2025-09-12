@@ -1,9 +1,9 @@
 ﻿<Window x:Class="Vistas.Alumnos.AltaAlumno"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="AltaAlumno" Height="416" Width="377">
-    <Border Background="#FFF0F5FF" CornerRadius="8" Padding="15" Margin="10">
-        <Grid>
+        Title="AltaAlumno" Height="388" Width="410" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <Border Background="#FFF0F5FF" CornerRadius="8" Padding="15" Margin="10" Height="329">
+        <Grid Height="306">
             <StackPanel>
                 <TextBlock Text="Alta de Alumno" FontWeight="Bold" FontSize="18" 
                            Foreground="#FF1E3A8A" Margin="0 0 0 15" HorizontalAlignment="Center"/>
@@ -31,10 +31,16 @@
                         </StackPanel>
                     </StackPanel>
                 </Border>
+                
+                <StackPanel Grid.Row="4" Grid.ColumnSpan="2" Orientation="Horizontal"
+                    HorizontalAlignment="Right" Margin="0 15 0 0">
 
-                <Button Content="Guardar Alumno" Width="120" Height="32" Margin="0 10" 
-                        Background="#FF1E3A8A" Foreground="White" FontWeight="Bold"
-                        Click="Guardar_Click" HorizontalAlignment="Center"/>
+                    <Button Template="{StaticResource BotonAlumnoGuardar}" Content="Guardar" 
+                            Width="90" Click="Guardar_Click" HorizontalAlignment="Center" Margin="10 0" IsDefault="True"/>
+
+                    <Button Template="{StaticResource BotonAlumnoCancelar}" Content="Cancelar" Width="90" IsCancel="True" />
+                </StackPanel>
+                
             </StackPanel>
         </Grid>
     </Border>
