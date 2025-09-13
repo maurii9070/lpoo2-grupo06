@@ -1,0 +1,80 @@
+﻿<Window x:Class="Vistas.Usuarios.AltaUsuariosView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="AltaUsuariosView" Height="427" Width="477"  WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <ResourceDictionary Source="/Resources/UsuariosPlantilla.xaml"/>
+    </Window.Resources>
+    <Border Background="#FFF5F5F5" Padding="20">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Header -->
+            <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,20">
+          
+                <TextBlock Text="ALTA DE USUARIO" 
+                           FontSize="20" 
+                           FontWeight="Bold" 
+                           Foreground="#FF2196F3"/>
+            </StackPanel>
+
+            <!-- Formulario -->
+            <Grid Grid.Row="1" Margin="0,10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Nombre de Usuario -->
+                <TextBlock Text="Usuario:" Grid.Row="0" Grid.Column="0" Margin="0,5,15,10" VerticalAlignment="Center" FontWeight="SemiBold"/>
+                <TextBox x:Name="txtUsuario" Grid.Row="0" Grid.Column="1" Margin="0,5,0,10" Height="30" Padding="5"/>
+
+                <!-- Contraseña -->
+                <TextBlock Text="Contraseña:" Grid.Row="1" Grid.Column="0" Margin="0,5,15,10" VerticalAlignment="Center" FontWeight="SemiBold"/>
+                <PasswordBox x:Name="txtPassword" Grid.Row="1" Grid.Column="1" Margin="0,5,0,10" Height="30" Padding="5"/>
+
+                <!-- Apellido y Nombre -->
+                <TextBlock Text="Apellido y Nombre:" Grid.Row="2" Grid.Column="0" Margin="0,5,15,10" VerticalAlignment="Center" FontWeight="SemiBold"/>
+                <TextBox x:Name="txtApellidoNombre" Grid.Row="2" Grid.Column="1" Margin="0,5,0,10" Height="30" Padding="5"/>
+
+                <!-- Rol -->
+                <TextBlock Text="Rol:" Grid.Row="3" Grid.Column="0" Margin="0,5,15,10" VerticalAlignment="Center" FontWeight="SemiBold"/>
+                <ComboBox x:Name="cmbRol" Grid.Row="3" Grid.Column="1" Margin="0,5,0,10" Height="30" Padding="5">
+                    <ComboBoxItem Content="Administrador"/>
+                    <ComboBoxItem Content="Docente"/>
+                    <ComboBoxItem Content="Recepción"/>
+                </ComboBox>
+
+                <!-- Email -->
+                <TextBlock Text="Email:" Grid.Row="4" Grid.Column="0" Margin="0,5,15,10" VerticalAlignment="Center" FontWeight="SemiBold"/>
+                <TextBox x:Name="txtEmail" Grid.Row="4" Grid.Column="1" Margin="0,5,0,10" Height="30" Padding="5"/>
+            </Grid>
+
+            <!-- Botones -->
+            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,0">
+                <Button x:Name="btnGuardar" 
+                        Content="GUARDAR" 
+                        Click="btnGuardar_Click"
+                        Style="{StaticResource SaveButtonStyle}"
+                        Margin="0,0,20,0" Height="29" Width="117" />
+
+                <Button x:Name="btnCancelar" 
+                        Content="CANCELAR" 
+                        Click="btnCancelar_Click"
+                        Style="{StaticResource CancelButtonStyle}" Height="29" Width="111" />
+            </StackPanel>
+        </Grid>
+    </Border>
+</Window>

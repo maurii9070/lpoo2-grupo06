@@ -14,7 +14,7 @@ using Vistas.Docentes;
 
 using Vistas.Cursos;
 
-
+using Vistas.Usuarios;
 using Vistas.Alumnos;
 
 namespace Vistas
@@ -48,6 +48,9 @@ namespace Vistas
         {
             AreaContenido.Content = new GestionAlumnoView();
         }
-
+        private void MenuUsuarios_Click(object sender, RoutedEventArgs e )
+        {
+            AreaContenido.Content = new GestionUsuariosUC();
+        }
     }
 }

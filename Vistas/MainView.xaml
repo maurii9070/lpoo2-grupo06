@@ -35,7 +35,7 @@
             <!-- Sección Sistema -->
             <Expander Header="Sistema" IsExpanded="True" Margin="5 0 5 5">
                 <StackPanel Margin="15 5">
-                    <Button Content="Usuarios" Height="30" Margin="0 2"/>
+                    <Button Content="Usuarios" Height="30" Margin="0 2" Click="MenuUsuarios_Click"/>
                     <Button Content="Salir" Height="30" Margin="0 2" Name="btnSalir" Click="btnSalir_Click" />
                 </StackPanel>
             </Expander>
