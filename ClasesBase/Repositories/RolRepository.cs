@@ -19,5 +19,10 @@ namespace ClasesBase.Repositories
         {
             return _roles.Find(r => r.Rol_ID == id);
         }
+        public static List<Rol> ObtenerTodos()
+        {
+            return _roles;
+        }
+        
     }
 }
