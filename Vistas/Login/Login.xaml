@@ -1,0 +1,38 @@
+﻿<Window x:Class="Vistas.Login.Login"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:UCLogin="clr-namespace:Vistas.Login"
+        Title="Login- Sistema de Gestion Academica"  Height="450" Width="420"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        Background="#FFF0F0F0" >
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Border Background="#FF003366" Grid.Row="0">
+            <TextBlock Text="Sistema de Gestión Académica"
+                       Foreground="White"
+                       FontSize="22"
+                       FontWeight="Bold"
+                       VerticalAlignment="Center"
+                       Margin="20 10" HorizontalAlignment="Center" />
+        </Border>
+
+        <Border Grid.Row="1"
+                Background="White"
+                CornerRadius="0,0,8,8"
+                BorderBrush="{x:Null}"
+                BorderThickness="0"
+                Padding="20"
+                VerticalAlignment="Stretch"
+                HorizontalAlignment="Stretch">
+            <UCLogin:LoginUC></UCLogin:LoginUC>
+
+        </Border>
+
+
+    </Grid>
+</Window>
