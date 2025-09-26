@@ -60,6 +60,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>institutoDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Database\DatabaseHelper.cs" />
     <Compile Include="Entidades\Alumno.cs" />
     <Compile Include="Entidades\Curso.cs" />
     <Compile Include="Entidades\Docente.cs" />
@@ -74,9 +75,18 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Repositories\AlumnoRepository.cs" />
+    <Compile Include="Repositories\CursoRepository.cs" />
+    <Compile Include="Repositories\DocenteRepository.cs" />
+    <Compile Include="Repositories\EstadoRepository.cs" />
+    <Compile Include="Repositories\EstadoTypeRepository.cs" />
     <Compile Include="Repositories\RolRepository.cs" />
     <Compile Include="Repositories\UsuarioRepository.cs" />
+    <Compile Include="Services\AlumnoService.cs" />
     <Compile Include="Services\AuthService.cs" />
+    <Compile Include="Services\CursoService.cs" />
+    <Compile Include="Services\DocenteService.cs" />
+    <Compile Include="Services\EstadoService.cs" />
     <Compile Include="Utils\EstadoCurso.cs" />
     <Compile Include="Utils\EstadoInscripcion.cs" />
   </ItemGroup>
@@ -134,6 +144,7 @@
     <None Include="App_Data\institutoDataSet.xss">
       <DependentUpon>institutoDataSet.xsd</DependentUpon>
     </None>
+    <None Include="ClassDiagram1.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

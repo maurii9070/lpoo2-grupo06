@@ -48,7 +48,7 @@ namespace Vistas.Docentes
                     Doc_Nombre = txtNombre.Text.Trim(),
                     Doc_Email = txtEmail.Text.Trim()
                 };
-
+                new DocenteService().GuardarDocente(DocenteNuevo);
                 DialogResult = true;   // cierra la ventana y devuelve true
                 
             }

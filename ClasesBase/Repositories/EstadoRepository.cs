@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using ClasesBase.Entidades;
+using System.Data;
+using System.Data.SqlClient;
+using ClasesBase.Database;
 
 namespace ClasesBase.Repositories
 {
@@ -30,6 +33,17 @@ namespace ClasesBase.Repositories
         public static List<Estado> ObtenerTodos()
         {
             return _estados;
+        }
+
+        public DataTable GetByType(string typeName)
+        {
+            string sql = "SELECT e.Est_ID, e.Est_Nombre " +
+                         "FROM Estado e " +
+                         "INNER JOIN EstadoType et ON e.Esty_ID = et.Esty_ID " +
+                         "WHERE et.Esty_Nombre = @TypeName " +
+                         "ORDER BY e.Est_Nombre";
+            SqlParameter[] p = { new SqlParameter("@TypeName", typeName) };
+            return DatabaseHelper.ExecuteQuery(sql, p);
         }
     
     }
