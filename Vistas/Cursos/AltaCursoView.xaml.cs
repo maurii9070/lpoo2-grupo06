@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using ClasesBase.Utils;
 using ClasesBase.Entidades;
+using ClasesBase.Services;
 
 namespace Vistas.Cursos
 {
@@ -26,53 +28,81 @@ namespace Vistas.Cursos
         public AltaCursoView()
         {
             InitializeComponent();
-
             txtNombre.Focus();
+            CargarCombos();
+        }
 
-            List<string> estados = new List<string>
-            {
-                EstadoCurso.Programado,
-                EstadoCurso.EnCurso,
-                EstadoCurso.Finalizado,
-                EstadoCurso.Cancelado
-            };
-            cboEstado.ItemsSource = estados;
-            cboEstado.SelectedIndex = 0; // por defecto
+        private void CargarCombos()
+        {
+            // --- Estados de curso ---
+            DataTable dtEst = new EstadoService().ObtenerEstadosDeCurso();
+            cboEstado.ItemsSource = dtEst.DefaultView;
+            cboEstado.DisplayMemberPath = "Est_Nombre";
+            cboEstado.SelectedValuePath = "Est_ID";
+
+            // --- Docentes ---
+            DataTable dtDoc = new DocenteService().ObtenerDocentes();
+            cboDocente.ItemsSource = dtDoc.DefaultView;
+            cboDocente.DisplayMemberPath = "Display";
+            cboDocente.SelectedValuePath = "Doc_ID";
+        }
+
+        private void txtCupo_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            // si NO es dígito, cancelamos el carácter
+            e.Handled = !char.IsDigit(e.Text, 0);
         }
 
         private void btnGuardar_Click(object sender, RoutedEventArgs e)
         {
-            
+            // Validaciones rápidas
             if (string.IsNullOrWhiteSpace(txtNombre.Text) ||
-                dpFechaIni.SelectedDate == null ||
-                dpFechaFin.SelectedDate == null)
+                string.IsNullOrWhiteSpace(txtDesc.Text)  ||
+                dpFechaIni.SelectedDate == null          ||
+                dpFechaFin.SelectedDate == null          ||
+                cboEstado.SelectedValue == null          ||
+                cboDocente.SelectedValue == null)
             {
-                MessageBox.Show("Complete los campos obligatorios.", "Faltan datos",
-                              MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Complete todos los campos correctamente.",
+                                "Alta Curso", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+            int cupo;   // declaración previa (C# 4)
+            if (!int.TryParse(txtCupo.Text, out cupo) || cupo <= 0)
+            {
+                MessageBox.Show("Ingrese un cupo válido mayor a 0.");
                 return;
             }
 
-            if (dpFechaFin.SelectedDate <= dpFechaIni.SelectedDate)
+            // FechaFin debe ser >= FechaInicio
+            if (dpFechaFin.SelectedDate < dpFechaIni.SelectedDate)
             {
-                MessageBox.Show("La fecha de fin debe ser posterior a la de inicio.", "Validación",
-                              MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("La fecha de fin debe ser posterior o igual a la de inicio.",
+                                "Alta Curso", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
-            // Crear objeto
+            // Arma el objeto
             CursoNuevo = new Curso
             {
-                Cur_ID          = 1,
                 Cur_Nombre      = txtNombre.Text.Trim(),
                 Cur_Descripcion = txtDesc.Text.Trim(),
-                Cur_Cupo        = int.Parse(txtCupo.Text),
+                Cur_Cupo        = cupo,
                 Cur_FechaInicio = dpFechaIni.SelectedDate.Value,
                 Cur_FechaFin    = dpFechaFin.SelectedDate.Value,
-                Est_ID          = 1,
-                Doc_ID          = 1
+                Est_ID          = (int)cboEstado.SelectedValue,
+                Doc_ID          = (int)cboDocente.SelectedValue
             };
 
-            DialogResult = true; 
+            // Persiste
+            new CursoService().GuardarCurso(CursoNuevo);
+
+            MessageBox.Show("Curso dado de alta:\n" + CursoNuevo.Cur_Nombre,
+                            "Alta exitosa",
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Information);
+
+            DialogResult = true;   // cierra la ventana modal
         }
     }
 }

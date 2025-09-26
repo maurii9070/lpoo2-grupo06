@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,14 +9,18 @@ namespace ClasesBase.Services
 {
     public class CursoService
     {
-        public void GuardarCurso(Curso curso)
+
+        private readonly CursoRepository _repo = new CursoRepository();
+
+        public DataTable ObtenerCursos()
         {
-            CursoRepository.AgregarCurso(curso);
+            return _repo.GetAll();   // _repo es CursoRepository
         }
 
-        public static List<Curso> ObtenerCursos()
+        public void GuardarCurso(Curso curso)
         {
-            return CursoRepository.ObtenerTodos();
+            // faltarian validaciones
+            _repo.Add(curso);
         }
     }
 }

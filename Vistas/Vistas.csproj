@@ -73,7 +73,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Cursos\CursosView.xaml">
+    <Page Include="Cursos\GestionCursosUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -81,7 +81,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Alumnos\GestionAlumnoView.xaml">
+    <Page Include="Alumnos\GestionAlumnoUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -89,7 +89,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Docentes\DocentesView.xaml">
+    <Page Include="Docentes\GestionDocentesUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -104,8 +104,8 @@
     <Compile Include="Alumnos\AltaAlumno.xaml.cs">
       <DependentUpon>AltaAlumno.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Alumnos\GestionAlumnoView.xaml.cs">
-      <DependentUpon>GestionAlumnoView.xaml</DependentUpon>
+    <Compile Include="Alumnos\GestionAlumnoUC.xaml.cs">
+      <DependentUpon>GestionAlumnoUC.xaml</DependentUpon>
     </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
@@ -114,14 +114,14 @@
     <Compile Include="Cursos\AltaCursoView.xaml.cs">
       <DependentUpon>AltaCursoView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Cursos\CursosView.xaml.cs">
-      <DependentUpon>CursosView.xaml</DependentUpon>
+    <Compile Include="Cursos\GestionCursosUC.xaml.cs">
+      <DependentUpon>GestionCursosUC.xaml</DependentUpon>
     </Compile>
     <Compile Include="Docentes\AltaDocenteView.xaml.cs">
       <DependentUpon>AltaDocenteView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Docentes\DocentesView.xaml.cs">
-      <DependentUpon>DocentesView.xaml</DependentUpon>
+    <Compile Include="Docentes\GestionDocentesUC.xaml.cs">
+      <DependentUpon>GestionDocentesUC.xaml</DependentUpon>
     </Compile>
     <Page Include="MainView.xaml">
       <SubType>Designer</SubType>
