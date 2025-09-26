@@ -123,11 +123,8 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\instituto.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <None Include="App_Data\instituto.mdf" />
     <Content Include="App_Data\instituto_log.ldf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>instituto.mdf</DependentUpon>
     </Content>
   </ItemGroup>
