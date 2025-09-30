@@ -4,12 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
-    <Grid Margin="15">
+             d:DesignHeight="338" d:DesignWidth="300">
+    <Grid Margin="15" Height="312">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="249*"/>
+            <RowDefinition Height="26"/>
         </Grid.RowDefinitions>
 
         <!-- Header -->
@@ -21,7 +21,7 @@
         </StackPanel>
 
         <!-- Botones de Acción -->
-        <StackPanel Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <StackPanel Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="35,30,35,159">
             <Button x:Name="btnAltaAlumno" 
                         Content="ALTA DE ALUMNO" 
                         Click="btnAltaAlumno_Click"
@@ -35,8 +35,22 @@
                         BorderThickness="1"/>
 
         </StackPanel>
+        <StackPanel Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="35,108,35,81">
+            <Button x:Name="btnEditarAlumno" 
+                        Content="EDITAR ALUMNO" 
+                        Click="btnEditarAlumno_Click"
+                        Background="#FF2196F3" 
+                        Foreground="White" 
+                        FontWeight="Bold" 
+                        Height="40" 
+                        Width="200" 
+                        Margin="0,10"
+                        BorderBrush="#FF1976D2"
+                        BorderThickness="1"/>
 
+        </StackPanel>
         <!-- Panel de contenido dinámico -->
         <ContentControl x:Name="contentControl" Grid.Row="2" Margin="0,15,0,0"/>
     </Grid>
 </UserControl>
+

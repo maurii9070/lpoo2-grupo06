@@ -11,6 +11,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using ClasesBase.Entidades;
+using ClasesBase.Repositories;
+using ClasesBase.Services;
+
 namespace Vistas.Alumnos
 {
     /// <summary>
@@ -18,18 +21,30 @@ namespace Vistas.Alumnos
     /// </summary>
     public partial class AltaAlumno : Window
     {
+
+        private Alumno oAlumno;
+        private AlumnoService alumnoService;
+
+
         public AltaAlumno()
         {
             InitializeComponent();
+            oAlumno = new Alumno();
+            alumnoService = new AlumnoService();
+            DataContext = oAlumno;
         }
+
         private void Guardar_Click(object sender, RoutedEventArgs e)
         {
-            // Creamos el objeto Alumno pero todavía no lo guardamos
-            Alumno oAlumno = new Alumno();
-            oAlumno.Alu_DNI = txtDNI.Text;
-            oAlumno.Alu_Apellido = txtApellido.Text;
-            oAlumno.Alu_Nombre = txtNombre.Text;
-            oAlumno.Alu_Email = txtEmail.Text;
+            // Validación antes de guardar
+            if (!string.IsNullOrEmpty(oAlumno["Alu_DNI"]) ||
+                !string.IsNullOrEmpty(oAlumno["Alu_Apellido"]) ||
+                !string.IsNullOrEmpty(oAlumno["Alu_Nombre"]) ||
+                !string.IsNullOrEmpty(oAlumno["Alu_Email"]))
+            {
+                MessageBox.Show("Todos los campos deben estar ingresados");
+                return;
+            }
 
             // Mostrar confirmación
             MessageBoxResult result = MessageBox.Show(
@@ -43,29 +58,22 @@ namespace Vistas.Alumnos
                 MessageBoxImage.Question
             );
 
-
             if (result == MessageBoxResult.Yes)
             {
+                alumnoService.CrearAlumno(oAlumno);
 
-                MessageBox.Show("Alumno guardado con éxito.",
-                                "Alta Alumno",
-                                MessageBoxButton.OK,
-                                MessageBoxImage.Information);
-    
-                // limpiar
-                txtDNI.Clear();
-                txtApellido.Clear();
-                txtNombre.Clear();
-                txtEmail.Clear();
+                MessageBox.Show("Alumno guardado con éxito.", "Alta Alumno", MessageBoxButton.OK, MessageBoxImage.Information);
+                this.Close();
             }
             else
             {
-                // Si cancela
-                MessageBox.Show("El alta fue cancelada.",
-                                "Alta Alumno",
-                                MessageBoxButton.OK,
-                                MessageBoxImage.Exclamation);
+                MessageBox.Show("El alta fue cancelada.", "Alta Alumno", MessageBoxButton.OK, MessageBoxImage.Exclamation);
             }
+        }
+
+        private void Cancelar_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

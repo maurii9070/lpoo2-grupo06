@@ -1,7 +1,8 @@
-﻿<Window x:Class="Vistas.Alumnos.AltaAlumno"
+﻿<Window x:Class="Vistas.Alumnos.EditarAlumno"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="AltaAlumno" Height="483" Width="410" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        xmlns:svc="clr-namespace:ClasesBase.Services;assembly=ClasesBase"
+        Title="EditarAlumno" Height="504" Width="410" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <!-- Template de validación -->
         <ControlTemplate x:Key="TextBoxErrorTemplate">
@@ -34,14 +35,20 @@
         </Style>
     </Window.Resources>
 
-    <Border Background="#FFF0F5FF" CornerRadius="8" Padding="15" Margin="10" Height="390">
+    <Border Background="#FFF0F5FF" CornerRadius="8" Padding="15" Margin="10" Height="426">
         <Grid Height="306">
-            <StackPanel Margin="0,0,0,-42">
-                <TextBlock Text="Alta de Alumno" FontWeight="Bold" FontSize="18" 
+            <StackPanel Margin="0,-39,0,-23">
+                <TextBlock Text="Modificación de Alumno" FontWeight="Bold" FontSize="18" 
                            Foreground="#FF1E3A8A" Margin="0 0 0 15" HorizontalAlignment="Center"/>
 
                 <Border CornerRadius="6" Background="White" Padding="15" Margin="0 0 0 10">
                     <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0 8">
+                            <TextBlock Text="ID Alumno:" Width="100" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                            <TextBox x:Name="txtID" Width="115" Padding="4" />
+                            <Button Content="Buscar" Width="80" Margin="10 0" Click="Buscar_Click"/>
+                        </StackPanel>
+
                         <StackPanel Orientation="Horizontal" Margin="0 8">
                             <TextBlock Text="DNI:" Width="100" FontWeight="SemiBold" VerticalAlignment="Center"/>
                             <TextBox Width="200" Padding="4" Style="{StaticResource EstiloError}"
@@ -81,3 +88,4 @@
         </Grid>
     </Border>
 </Window>
+
