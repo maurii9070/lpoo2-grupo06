@@ -25,5 +25,10 @@ namespace ClasesBase.Services
         {
             return repo.GetAlumnos();
         }
+
+        public void ActualizarAlumno(Alumno alumno)
+        {
+            repo.UpdateAlumno(alumno);
+        }
     }
 }

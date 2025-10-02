@@ -28,5 +28,11 @@ namespace Vistas.Alumnos
             AltaAlumno alta = new AltaAlumno();
             alta.Show();
         }
+
+        private void btnEditarAlumno_Click(object sender, RoutedEventArgs e)
+        {
+            EditarAlumno editar = new EditarAlumno();
+            editar.Show();
+        }
     }
 }
