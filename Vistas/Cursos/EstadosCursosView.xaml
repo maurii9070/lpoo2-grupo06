@@ -1,0 +1,27 @@
+﻿<UserControl x:Class="Vistas.Cursos.EstadosCursosView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:conv="clr-namespace:Vistas.Resources"
+             Height="300" Width="300">
+    <StackPanel Margin="16">
+        <StackPanel.Resources>
+            <XmlDataProvider x:Key="estado"
+                     Source="/Resources/Estados.xml"
+                     XPath="/Estados" />
+            <conv:ConversorDeEstado x:Key="EstadoBrushConversor"/>
+        </StackPanel.Resources>
+
+        <TextBlock Text="Seleccionar estado:" FontWeight="Bold" Margin="0,25,0,8" Width="218" />
+        <ComboBox x:Name="cmbEstados"
+                  Width="220"
+                  ItemsSource="{Binding Source={StaticResource estado}, XPath=Estado}"
+                  DisplayMemberPath="@name"
+                  SelectedValuePath="@name" />
+
+        <Rectangle Width="220" Height="100" Margin="0,25,0,0"
+            Stroke="Black"
+            StrokeThickness="1"
+            Fill="{Binding SelectedValue, ElementName=cmbEstados, Converter={StaticResource EstadoBrushConversor}}" />
+    </StackPanel>
+
+</UserControl>

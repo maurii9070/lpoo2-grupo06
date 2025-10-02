@@ -60,12 +60,16 @@
     <Compile Include="Alumnos\EditarAlumno.xaml.cs">
       <DependentUpon>EditarAlumno.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Cursos\EstadosCursosView.xaml.cs">
+      <DependentUpon>EstadosCursosView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Login\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
     <Compile Include="Login\LoginUC.xaml.cs">
       <DependentUpon>LoginUC.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Resources\ConversorDeEstado.cs" />
     <Compile Include="Usuarios\AltaUsuariosView.xaml.cs">
       <DependentUpon>AltaUsuariosView.xaml</DependentUpon>
     </Compile>
@@ -77,6 +81,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Cursos\AltaCursoView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Cursos\EstadosCursosView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -188,7 +196,9 @@
       <Name>ClasesBase</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\Estados.xml" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

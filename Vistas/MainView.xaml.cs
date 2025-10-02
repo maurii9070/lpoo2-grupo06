@@ -52,5 +52,10 @@ namespace Vistas
         {
             AreaContenido.Content = new GestionUsuariosUC();
         }
+
+        private void MenuEstadoCursos_Click(object sender, RoutedEventArgs e)
+        {
+            AreaContenido.Content = new EstadosCursosView();
+        }
     }
 }
