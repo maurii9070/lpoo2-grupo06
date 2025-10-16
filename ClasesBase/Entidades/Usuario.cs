@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using ClasesBase.Repositories;
 
 namespace ClasesBase.Entidades
 {
@@ -9,6 +10,15 @@ namespace ClasesBase.Entidades
         public string Usu_Contrasenia { get; set; }
         public string Usu_ApellidoNombre { get; set; }
         public int Rol_ID { get; set; }
+
+        public string RolNombre
+        {
+            get
+            {
+                var rol = new RolRepository().Obtener(Rol_ID);
+                return rol != null ? rol.Rol_Descripcion : "Sin rol";
+            }
+        }
 
         // INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;

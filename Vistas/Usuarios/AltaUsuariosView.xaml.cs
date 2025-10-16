@@ -101,7 +101,6 @@ namespace Vistas.Usuarios
                                             "Contraseña: " + new string('*', nuevoUsuario.Usu_Contrasenia.Length) + "\n" +
                                             "Nombre: " + nuevoUsuario.Usu_ApellidoNombre + "\n" +
                                             "Rol: " + rolDescripcion + "\n" +
-                                            "Email: " + (string.IsNullOrEmpty(txtEmail.Text) ? "No especificado" : txtEmail.Text) + "\n\n" +
                                             "¿Confirmar la creación de este usuario?";
 
             MessageBoxResult result = MessageBox.Show(
@@ -176,7 +175,6 @@ namespace Vistas.Usuarios
             txtUsuario.Clear();
             txtPassword.Clear();
             txtApellidoNombre.Clear();
-            txtEmail.Clear();
             cmbRol.SelectedIndex = -1;
             txtUsuario.Focus();
         }

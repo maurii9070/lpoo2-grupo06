@@ -80,7 +80,7 @@
                                         Binding="{Binding Usu_ApellidoNombre}"
                                         Width="*"/>
                     <DataGridTextColumn Header="Rol"
-                                        Binding="{Binding Rol_ID}"
+                                        Binding="{Binding RolNombre}"
                                         Width="*"/>
                     <!-- Contraseña NO se muestra -->
                 </DataGrid.Columns>

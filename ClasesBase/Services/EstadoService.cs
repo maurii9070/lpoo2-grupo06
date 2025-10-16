@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using ClasesBase.Entidades;
 using ClasesBase.Repositories;
 using System.Data;
@@ -10,21 +8,16 @@ namespace ClasesBase.Services
 {
     public class EstadoService
     {
-        private readonly EstadoRepository _repo = new EstadoRepository();
-
-        public static List<Estado> ObtenerEstadosCurso()
-        {
-            return EstadoRepository.ObtenerEstadosCurso();
-        }
-
+        // Métodos estáticos son aceptables si no tienen estado
         public static List<EstadoType> ObtenerTiposEstado()
         {
             return EstadoTypeRepository.ObtenerTodos();
         }
 
-        public DataTable ObtenerEstadosDeCurso()
+        public static List<Estado> ObtenerEstadosCurso()
         {
-            return _repo.GetByType("curso");   // mismo nombre que figura en EstadoType
+            return EstadoRepository.ObtenerPorTipo("curso");
         }
+
     }
 }
