@@ -88,6 +88,7 @@
     <Compile Include="Services\DocenteService.cs" />
     <Compile Include="Services\EstadoService.cs" />
     <Compile Include="Services\TrabajarAlumno.cs" />
+    <Compile Include="Services\UsuarioService.cs" />
     <Compile Include="Utils\EstadoCurso.cs" />
     <Compile Include="Utils\EstadoInscripcion.cs" />
   </ItemGroup>

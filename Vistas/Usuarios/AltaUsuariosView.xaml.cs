@@ -11,8 +11,11 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
+using ClasesBase; // 👈 AGREGAR ESTA LÍNEA para acceder a TrabajarUsuarios
 using ClasesBase.Entidades;
 using ClasesBase.Repositories;
+using ClasesBase.Services;
+
 namespace Vistas.Usuarios
 {
     /// <summary>
@@ -21,11 +24,32 @@ namespace Vistas.Usuarios
     public partial class AltaUsuariosView : Window
     {
         RolRepository rolRep = new RolRepository();
+        private UsuarioService _service = new UsuarioService();
+
+        // CORRECCIÓN: Se añaden las declaraciones faltantes (Errores 21 al 29)
+        private bool _modoEdicion = false;
+        private Usuario _usuarioActual;
+
         public AltaUsuariosView()
         {
             InitializeComponent();
             CargarRoles();
         }
+
+        // Constructor para modificación
+        public AltaUsuariosView(Usuario usuario)
+            : this()
+        {
+            _modoEdicion = true;
+            _usuarioActual = usuario;
+
+            // Precargar los campos
+            txtUsuario.Text = usuario.Usu_NombreUsuario;
+            txtPassword.Password = usuario.Usu_Contrasenia;
+            txtApellidoNombre.Text = usuario.Usu_ApellidoNombre;
+            cmbRol.SelectedValue = usuario.Rol_ID;
+        }
+
         private void CargarRoles()
         {
             // Limpiar cualquier item existente primero
@@ -39,59 +63,74 @@ namespace Vistas.Usuarios
 
         private void btnGuardar_Click(object sender, RoutedEventArgs e)
         {
-            if (ValidarCampos())
+            if (!ValidarCampos())
             {
-                // Obtener el rol seleccionado
-                int rolId = (int)cmbRol.SelectedValue;
-                string rolDescripcion = ObtenerDescripcionRol(rolId);
+                return;
+            }
 
-                Usuario usuario = new Usuario
-                {
-                    Usu_NombreUsuario = txtUsuario.Text,
-                    Usu_Contrasenia = txtPassword.Password,
-                    Usu_ApellidoNombre = txtApellidoNombre.Text,
-                    Rol_ID = rolId
-                };
+            if (_modoEdicion)
+            {
+                _usuarioActual.Usu_NombreUsuario = txtUsuario.Text;
+                _usuarioActual.Usu_Contrasenia = txtPassword.Password;
+                _usuarioActual.Usu_ApellidoNombre = txtApellidoNombre.Text;
+                _usuarioActual.Rol_ID = (int)cmbRol.SelectedValue;
 
-                // Mostrar confirmación con los datos (pero NO guardar)
-                string mensajeConfirmacion = "DATOS DEL USUARIO A CREAR\n\n" +
-                                             "Usuario: " + usuario.Usu_NombreUsuario + "\n" +
-                                             "Contraseña: " + new string('*', usuario.Usu_Contrasenia.Length) + "\n" +
-                                             "Nombre: " + usuario.Usu_ApellidoNombre + "\n" +
-                                             "Rol: " + rolDescripcion + "\n" +
-                                             "Email: " + (string.IsNullOrEmpty(txtEmail.Text) ? "No especificado" : txtEmail.Text) + "\n\n" +
-                                             "¿Confirmar la creación de este usuario?";
+                _service.ActualizarUsuario(_usuarioActual);
 
-                MessageBoxResult result = MessageBox.Show(
-                    mensajeConfirmacion,
-                    "CONFIRMAR ALTA DE USUARIO",
-                    MessageBoxButton.YesNo,
-                    MessageBoxImage.Question);
+                MessageBox.Show("Usuario modificado correctamente.", "Éxito", MessageBoxButton.OK, MessageBoxImage.Information);
 
-                if (result == MessageBoxResult.Yes)
-                {
-                    // SOLO MOSTRAR MENSAJE DE ÉXITO, NO GUARDAR
-                    string mensajeExito = "USUARIO CREADO EXITOSAMENTE\n\n" +
-                                         "Se han capturado todos los datos correctamente.\n" +
-                                         "En un sistema real, los datos se guardarian en la base de datos.\n\n" +
-                                         "Usuario: " + usuario.Usu_NombreUsuario + "\n" +
-                                         "Rol: " + rolDescripcion;
+                this.DialogResult = true; // ✅ IMPORTANTE
+                this.Close();
+                return;
+            }
 
-                    MessageBox.Show(
-                        mensajeExito,
-                        "SIMULACION EXITOSA",
-                        MessageBoxButton.OK,
-                        MessageBoxImage.Information);
+            // --- ALTA ---
+            int rolId = (int)cmbRol.SelectedValue;
+            string rolDescripcion = ObtenerDescripcionRol(rolId);
 
-                    LimpiarCampos();
-                }
+            Usuario nuevoUsuario = new Usuario
+            {
+                Usu_NombreUsuario = txtUsuario.Text,
+                Usu_Contrasenia = txtPassword.Password,
+                Usu_ApellidoNombre = txtApellidoNombre.Text,
+                Rol_ID = rolId
+            };
+
+            string mensajeConfirmacion = "DATOS DEL USUARIO A CREAR\n\n" +
+                                            "Usuario: " + nuevoUsuario.Usu_NombreUsuario + "\n" +
+                                            "Contraseña: " + new string('*', nuevoUsuario.Usu_Contrasenia.Length) + "\n" +
+                                            "Nombre: " + nuevoUsuario.Usu_ApellidoNombre + "\n" +
+                                            "Rol: " + rolDescripcion + "\n" +
+                                            "Email: " + (string.IsNullOrEmpty(txtEmail.Text) ? "No especificado" : txtEmail.Text) + "\n\n" +
+                                            "¿Confirmar la creación de este usuario?";
+
+            MessageBoxResult result = MessageBox.Show(
+                mensajeConfirmacion,
+                "CONFIRMAR ALTA DE USUARIO",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                _service.GuardarUsuario(nuevoUsuario);
+
+                string mensajeExito = "USUARIO CREADO EXITOSAMENTE\n\n" +
+                                        "Usuario: " + nuevoUsuario.Usu_NombreUsuario + "\n" +
+                                        "Rol: " + rolDescripcion;
+
+                MessageBox.Show(mensajeExito, "ALTA EXITOSA", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                LimpiarCampos();
+                this.DialogResult = true; // ✅ IMPORTANTE: incluso después de limpiar, si se creó, hay cambio
             }
         }
 
         private void btnCancelar_Click(object sender, RoutedEventArgs e)
         {
+            this.DialogResult = false; // explícito
             this.Close();
         }
+
 
         private bool ValidarCampos()
         {
@@ -128,7 +167,6 @@ namespace Vistas.Usuarios
 
         private string ObtenerDescripcionRol(int rolId)
         {
-            // Usar directamente el Repository para obtener la descripción del rol
             Rol rol = rolRep.Obtener(rolId);
             return rol != null ? rol.Rol_Descripcion : "Desconocido";
         }
@@ -141,6 +179,11 @@ namespace Vistas.Usuarios
             txtEmail.Clear();
             cmbRol.SelectedIndex = -1;
             txtUsuario.Focus();
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

@@ -70,6 +70,9 @@
       <DependentUpon>LoginUC.xaml</DependentUpon>
     </Compile>
     <Compile Include="Resources\ConversorDeEstado.cs" />
+    <Compile Include="Usuarios\ABMUsuarios.xaml.cs">
+      <DependentUpon>ABMUsuarios.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Usuarios\AltaUsuariosView.xaml.cs">
       <DependentUpon>AltaUsuariosView.xaml</DependentUpon>
     </Compile>
@@ -151,6 +154,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Resources\UsuariosPlantilla.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Usuarios\ABMUsuarios.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

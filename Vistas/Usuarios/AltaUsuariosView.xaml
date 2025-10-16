@@ -68,12 +68,12 @@
                         Content="GUARDAR" 
                         Click="btnGuardar_Click"
                         Style="{StaticResource SaveButtonStyle}"
-                        Margin="0,0,20,0" Height="29" Width="117" />
+                        Margin="0,0,20,0" Height="29" Width="117" IsDefault="True" IsCancel="False" />
 
                 <Button x:Name="btnCancelar" 
                         Content="CANCELAR" 
                         Click="btnCancelar_Click"
-                        Style="{StaticResource CancelButtonStyle}" Height="29" Width="111" />
+                        Style="{StaticResource CancelButtonStyle}" Height="29" Width="111" IsCancel="True" />
             </StackPanel>
         </Grid>
     </Border>
