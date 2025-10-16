@@ -1,0 +1,36 @@
+﻿<Window x:Class="Vistas.Usuarios.ABMUsuarios"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="ABMUsuarios" Loaded="Window_Loaded" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" Height="300" Width="828" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <ResourceDictionary Source="/Resources/UsuariosPlantilla.xaml"/>
+    </Window.Resources>
+    <Grid Width="787">
+        <Button Content="Nuevo" Height="27" HorizontalAlignment="Left" Margin="38,32,0,0" Name="Btn_Nuevo" VerticalAlignment="Top" Width="78" DataContext="{Binding}" Style="{StaticResource SaveButtonStyle}" Click="Btn_Nuevo_Click" />
+        <Button Content="Modificar" Height="27" HorizontalAlignment="Left" Margin="124,32,0,0" Name="Btn_Modificar" VerticalAlignment="Top" Width="78" Style="{StaticResource ModernButtonStyle}" Click="Btn_Modificar_Click" />
+        <Button Content="Eliminar" Height="27" HorizontalAlignment="Left" Margin="208,32,0,0" Name="Btn_Eliminar" VerticalAlignment="Top" Width="78" Style="{StaticResource CancelButtonStyle}" Click="Btn_Eliminar_Click" />
+        <Button Content="Cancelar" Height="27" HorizontalAlignment="Right" Margin="0,32,417,0" Name="Btn_Cancelar" VerticalAlignment="Top" Width="78" Background="#FF7D7D7D" Foreground="White" FontSize="14" FontWeight="Bold" Style="{StaticResource SaveButtonStyle}" BorderBrush="#FF767676" Click="Btn_Cancelar_Click" />
+        <Button Content="|◁" Height="27" HorizontalAlignment="Right" Margin="0,28,211,0" Name="Btn_Primero" VerticalAlignment="Top" Width="44" FontWeight="Bold" FontSize="14" FlowDirection="LeftToRight" BorderBrush="#FF0E4AB0" FontStretch="Normal" Foreground="White" FontFamily="Segoe UI" Background="#FF056BB9" FontStyle="Normal" Style="{StaticResource SaveButtonStyle}" Click="Btn_Primero_Click" />
+
+        <!-- Apellido -->
+        <TextBlock Height="34" HorizontalAlignment="Left" Margin="40,82,0,0" Text="Apellido:" VerticalAlignment="Top" Width="156" FontWeight="Normal" FontSize="16" />
+        <TextBox Height="34" HorizontalAlignment="Left" Margin="487,82,0,0" Name="Apellido_txt" VerticalAlignment="Top" Width="275" FontSize="16" IsReadOnly="True" />
+
+        <!-- Nombre -->
+        <TextBlock Height="34" HorizontalAlignment="Left" Margin="40,122,0,0" Text="Nombre:" VerticalAlignment="Top" Width="156" FontWeight="Normal" FontSize="16" />
+        <TextBox Height="34" HorizontalAlignment="Left" Margin="487,122,0,0" Name="nombre_txt" VerticalAlignment="Top" Width="275" FontSize="16" IsReadOnly="True" />
+
+        <!-- User Name -->
+        <TextBlock Height="34" HorizontalAlignment="Left" Margin="40,163,0,0" Text="User Name:" VerticalAlignment="Top" Width="156" FontWeight="Normal" FontSize="16" />
+        <TextBox Height="34" HorizontalAlignment="Left" Margin="487,163,0,0" Name="user_txt" VerticalAlignment="Top" Width="275" FontSize="16" IsReadOnly="True" />
+
+        <!-- Password -->
+        <TextBlock Height="34" HorizontalAlignment="Left" Margin="40,203,0,0" Text="Password:" VerticalAlignment="Top" Width="156" FontWeight="Normal" FontSize="16" />
+        <TextBox Height="34" HorizontalAlignment="Right" Margin="0,203,25,0" Name="password_txt" VerticalAlignment="Top" Width="275" FontSize="16" IsReadOnly="True" />
+
+        <!-- Botones de navegación -->
+        <Button Background="#FF056BB9" BorderBrush="#FF0E4AB0" Content="◁" FlowDirection="LeftToRight" FontFamily="Segoe UI" FontSize="14" FontStretch="Normal" FontStyle="Normal" FontWeight="Bold" Foreground="White" Height="27" HorizontalAlignment="Right" Margin="0,28,161,0" Name="Btn_Anterior" VerticalAlignment="Top" Width="44" DataContext="{Binding}" Style="{StaticResource SaveButtonStyle}" Click="Btn_Anterior_Click" />
+        <Button Background="#FF056BB9" BorderBrush="#FF0E4AB0" FlowDirection="LeftToRight" FontFamily="Segoe UI" FontSize="14" FontStretch="Normal" FontStyle="Normal" FontWeight="Bold" Foreground="White" Height="27" HorizontalAlignment="Right" Margin="0,28,111,0" Name="Btn_Siguiente" VerticalAlignment="Top" Width="44" IsManipulationEnabled="False" AllowDrop="False" ClipToBounds="False" ForceCursor="False" Content="▷" Style="{StaticResource SaveButtonStyle}" Click="Btn_Siguiente_Click" />
+        <Button Background="#FF056BB9" BorderBrush="#FF0E4AB0" Content="▷|" FlowDirection="LeftToRight" FontFamily="Segoe UI" FontSize="14" FontStretch="Normal" FontStyle="Normal" FontWeight="Bold" Foreground="White" Height="27" HorizontalAlignment="Right" Margin="0,28,61,0" Name="btn_Ultimo" VerticalAlignment="Top" Width="44" Style="{StaticResource SaveButtonStyle}" Click="btn_Ultimo_Click" />
+    </Grid>
+</Window>
