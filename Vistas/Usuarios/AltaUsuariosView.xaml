@@ -1,12 +1,12 @@
 ﻿<Window x:Class="Vistas.Usuarios.AltaUsuariosView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="AltaUsuariosView" Height="427" Width="477"  WindowStartupLocation="CenterScreen">
+        Title="AltaUsuariosView" Height="360" Width="477"  WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <ResourceDictionary Source="/Resources/UsuariosPlantilla.xaml"/>
     </Window.Resources>
     <Border Background="#FFF5F5F5" Padding="20">
-        <Grid>
+        <Grid Height="292">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
@@ -23,7 +23,7 @@
             </StackPanel>
 
             <!-- Formulario -->
-            <Grid Grid.Row="1" Margin="0,10">
+            <Grid Grid.Row="1" Margin="0,10,0,58">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
@@ -56,14 +56,10 @@
                     <ComboBoxItem Content="Docente"/>
                     <ComboBoxItem Content="Recepción"/>
                 </ComboBox>
-
-                <!-- Email -->
-                <TextBlock Text="Email:" Grid.Row="4" Grid.Column="0" Margin="0,5,15,10" VerticalAlignment="Center" FontWeight="SemiBold"/>
-                <TextBox x:Name="txtEmail" Grid.Row="4" Grid.Column="1" Margin="0,5,0,10" Height="30" Padding="5"/>
             </Grid>
 
             <!-- Botones -->
-            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,0">
+            <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="82,186,82,0">
                 <Button x:Name="btnGuardar" 
                         Content="GUARDAR" 
                         Click="btnGuardar_Click"

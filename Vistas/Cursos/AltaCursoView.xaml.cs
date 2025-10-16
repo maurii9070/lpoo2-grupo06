@@ -35,8 +35,8 @@ namespace Vistas.Cursos
         private void CargarCombos()
         {
             // --- Estados de curso ---
-            DataTable dtEst = new EstadoService().ObtenerEstadosDeCurso();
-            cboEstado.ItemsSource = dtEst.DefaultView;
+            List<Estado> estados = EstadoService.ObtenerEstadosCurso(); // devuelve List<Estado>
+            cboEstado.ItemsSource = estados; // 👈 asignar directamente la lista
             cboEstado.DisplayMemberPath = "Est_Nombre";
             cboEstado.SelectedValuePath = "Est_ID";
 

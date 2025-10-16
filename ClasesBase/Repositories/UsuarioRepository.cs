@@ -12,21 +12,35 @@ namespace ClasesBase.Repositories
 {
     public class UsuarioRepository
     {
-        private static readonly List<Usuario> _usuarios = new List<Usuario>
-        {
-            new Usuario{ Usu_ID=1, Usu_NombreUsuario="admin",
-                         Usu_Contrasenia="1234", Usu_ApellidoNombre="Admin, Root", Rol_ID=1 },
-            new Usuario{ Usu_ID=2, Usu_NombreUsuario="docente",
-                         Usu_Contrasenia="1234", Usu_ApellidoNombre="Perez, Juan", Rol_ID=2 },
-            new Usuario{ Usu_ID=3, Usu_NombreUsuario="recepcion",
-                         Usu_Contrasenia="1234", Usu_ApellidoNombre="Gomez, Ana", Rol_ID=3 }
-        };
-
+      
         public Usuario ObtenerPorUsuarioYClave(string usuario, string clave)
         {
-            return _usuarios
-                   .FirstOrDefault(u => u.Usu_NombreUsuario == usuario &&
-                                        u.Usu_Contrasenia == clave);
+            string sql = "SELECT Usu_ID, Usu_NombreUsuario, Usu_Contrasenia, " +
+                         "Usu_ApellidoNombre, Rol_ID " +
+                         "FROM Usuario " +
+                         "WHERE Usu_NombreUsuario = @usuario AND Usu_Contrasenia = @clave";
+
+            SqlParameter[] parametros = {
+                new SqlParameter("@usuario", usuario ?? (object)DBNull.Value),
+                new SqlParameter("@clave", clave ?? (object)DBNull.Value)
+            };
+
+            DataTable dt = DatabaseHelper.ExecuteQuery(sql, parametros);
+
+            if (dt.Rows.Count > 0)
+            {
+                DataRow r = dt.Rows[0];
+                return new Usuario
+                {
+                    Usu_ID = Convert.ToInt32(r["Usu_ID"]),
+                    Usu_NombreUsuario = r["Usu_NombreUsuario"].ToString(),
+                    Usu_Contrasenia = r["Usu_Contrasenia"].ToString(),
+                    Usu_ApellidoNombre = r["Usu_ApellidoNombre"].ToString(),
+                    Rol_ID = Convert.ToInt32(r["Rol_ID"])
+                };
+            }
+
+            return null; // no encontrado
         }
 
         private const string Table = "Usuario";
