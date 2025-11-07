@@ -48,6 +48,11 @@
                      Padding="5"
                      FontSize="14"
                      TextChanged="TxtFiltro_TextChanged"/>
+            <Button Content="Vista Previa" 
+                Name="btnVistaPrevia"
+                Height="25" 
+                Click="btnVistaPrevia_Click" 
+                Margin="10,0"/>
         </StackPanel>
 
         <!-- ================= GRILLA / SIN DATOS ================= -->

@@ -69,5 +69,17 @@ namespace Vistas.Usuarios
             abm.ShowDialog();     // Mostramos el ABM
             CargarGrilla();       // Siempre recargamos la grilla al volver
         }
+
+        private void btnVistaPrevia_Click(object sender, RoutedEventArgs e)
+        {
+            // 'view' es tu ICollectionView.
+            // Usamos .Cast<Usuario>() para obtener la lista que está
+            // actualmente en la grilla (ya sea filtrada o completa).
+            IEnumerable<Usuario> listaParaImprimir = view.Cast<Usuario>();
+
+            // Creamos y mostramos la nueva ventana
+            VistaPreviaImpresion vistaPrevia = new VistaPreviaImpresion(listaParaImprimir);
+            vistaPrevia.ShowDialog();
+        }
     }
 }
