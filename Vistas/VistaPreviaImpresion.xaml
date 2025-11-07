@@ -1,0 +1,31 @@
+﻿<Window x:Class="Vistas.VistaPreviaImpresion"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Vista previa de impresión" Height="700" Width="800"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <FlowDocumentScrollViewer Grid.Row="0" Name="docViewer" VerticalScrollBarVisibility="Auto">
+
+            <FlowDocument Name="flowDoc" 
+                          PageWidth="720" 
+                          ColumnWidth="720" 
+                          PagePadding="40">
+
+                <Paragraph FontSize="24" FontWeight="Bold" Margin="0,0,0,20">
+                    Listado de Usuarios
+                </Paragraph>
+
+            </FlowDocument>
+        </FlowDocumentScrollViewer>
+
+        <Button Grid.Row="1" Name="btnImprimir" Content="Imprimir" 
+                Width="100" Height="30" Margin="10" 
+                HorizontalAlignment="Center"
+                Click="btnImprimir_Click"/>
+    </Grid>
+</Window>

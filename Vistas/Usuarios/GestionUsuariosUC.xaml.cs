@@ -66,8 +66,16 @@ namespace Vistas.Usuarios
         private void Btn_ABM_Click(object sender, RoutedEventArgs e)
         {
             ABMUsuarios abm = new ABMUsuarios();
-            abm.ShowDialog();     // Mostramos el ABM
-            CargarGrilla();       // Siempre recargamos la grilla al volver
+            abm.ShowDialog();     
+            CargarGrilla();       
+        }
+
+        private void btnVistaPrevia_Click(object sender, RoutedEventArgs e)
+        {
+            IEnumerable<Usuario> listaParaImprimir = view.Cast<Usuario>();
+
+            VistaPreviaImpresion vistaPrevia = new VistaPreviaImpresion(listaParaImprimir);
+            vistaPrevia.ShowDialog();
         }
     }
 }

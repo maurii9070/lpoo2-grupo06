@@ -17,16 +17,37 @@
 
         <!-- ================= TÍTULO + BOTÓN ================= -->
         <DockPanel Grid.Row="0" Margin="10">
-            <Button x:Name="Btn_ABM"
-                    DockPanel.Dock="Right"
-                    Background="#FF2196F3"
-                    BorderBrush="#FF1976D2"
-                    BorderThickness="1"
-                    Content="ABM DE USUARIOS"
-                    FontWeight="Bold"
-                    Foreground="White"
-                    Width="190" Height="40"
-                    Click="Btn_ABM_Click"/>
+
+            <!-- Contenedor para los botones alineados a la derecha -->
+            <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" VerticalAlignment="Center">
+
+                <!-- NUEVO Botón "Vista Previa" con estilo secundario -->
+                <Button x:Name="btnVistaPrevia"
+                        Content="Vista Previa" 
+                        Click="btnVistaPrevia_Click"
+                        Height="40"
+                        Width="150"
+                        FontWeight="Bold"
+                        Background="White"
+                        BorderBrush="#FF1976D2" 
+                        Foreground="#FF1976D2"
+                        BorderThickness="1"
+                        Margin="0,0,10,0"/>
+                <!-- Margen derecho para separar del botón ABM -->
+
+                <!-- Tu Botón "ABM" (sin cambios, solo movido dentro del StackPanel) -->
+                <Button x:Name="Btn_ABM"
+                        Background="#FF2196F3"
+                        BorderBrush="#FF1976D2"
+                        BorderThickness="1"
+                        Content="ABM DE USUARIOS"
+                        FontWeight="Bold"
+                        Foreground="White"
+                        Width="190" Height="40"
+                        Click="Btn_ABM_Click"/>
+            </StackPanel>
+
+            <!-- Título (sin cambios) -->
             <TextBlock Text="Gestión de Usuarios"
                        FontSize="28"
                        FontWeight="Bold"
@@ -48,6 +69,7 @@
                      Padding="5"
                      FontSize="14"
                      TextChanged="TxtFiltro_TextChanged"/>
+            <!-- El botón de Vista Previa se movió a la fila superior -->
         </StackPanel>
 
         <!-- ================= GRILLA / SIN DATOS ================= -->
