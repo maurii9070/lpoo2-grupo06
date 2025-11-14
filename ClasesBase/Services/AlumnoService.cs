@@ -25,6 +25,10 @@ namespace ClasesBase.Services
         {
             return repo.GetAlumnos();
         }
+        public Alumno ObtenerAlumnoPorDNI(string dni)
+        {
+            return repo.GetAlumnoByDNI(dni);
+        }
 
         public void ActualizarAlumno(Alumno alumno)
         {

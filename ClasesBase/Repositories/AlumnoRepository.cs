@@ -50,6 +50,25 @@ namespace ClasesBase.Repositories
             return alumnos;
         }
 
+        //Obtener alumno por DNI
+        public Alumno GetAlumnoByDNI(string dni) 
+        {
+            string query = "SELECT * FROM Alumno WHERE Alu_DNI= @dni";
+            SqlParameter[] parameters = {
+                 new SqlParameter("@dni", dni)
+                                         };
+            DataTable dt = DatabaseHelper.ExecuteQuery(query, parameters);
+            if (dt.Rows.Count == 0) return null;
+
+            DataRow row = dt.Rows[0];
+            Alumno alumno = new Alumno();
+            alumno.Alu_ID = Convert.ToInt32(row["Alu_ID"]);
+            alumno.Alu_DNI = row["Alu_DNI"].ToString();
+            alumno.Alu_Apellido = row["Alu_Apellido"].ToString();
+            alumno.Alu_Nombre = row["Alu_Nombre"].ToString();
+            alumno.Alu_Email = row["Alu_Email"].ToString();
+            return alumno;
+        }
         // Buscar alumno por ID
         public Alumno GetAlumnoById(int id)
         {

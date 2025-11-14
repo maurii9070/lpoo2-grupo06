@@ -80,6 +80,7 @@
     <Compile Include="Repositories\DocenteRepository.cs" />
     <Compile Include="Repositories\EstadoRepository.cs" />
     <Compile Include="Repositories\EstadoTypeRepository.cs" />
+    <Compile Include="Repositories\InscripcionRepository.cs" />
     <Compile Include="Repositories\RolRepository.cs" />
     <Compile Include="Repositories\UsuarioRepository.cs" />
     <Compile Include="Services\AlumnoService.cs" />
@@ -87,6 +88,7 @@
     <Compile Include="Services\CursoService.cs" />
     <Compile Include="Services\DocenteService.cs" />
     <Compile Include="Services\EstadoService.cs" />
+    <Compile Include="Services\InscripcionService.cs" />
     <Compile Include="Services\TrabajarAlumno.cs" />
     <Compile Include="Services\UsuarioService.cs" />
     <Compile Include="Utils\EstadoCurso.cs" />

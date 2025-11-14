@@ -64,6 +64,12 @@
     <Compile Include="Cursos\EstadosCursosView.xaml.cs">
       <DependentUpon>EstadosCursosView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Inscripciones\AltaInscripcionView.xaml.cs">
+      <DependentUpon>AltaInscripcionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Inscripciones\GestionDeInscripcionesUC.xaml.cs">
+      <DependentUpon>GestionDeInscripcionesUC.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Login\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
@@ -112,6 +118,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Docentes\GestionDocentesUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Inscripciones\AltaInscripcionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Inscripciones\GestionDeInscripcionesUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -214,6 +228,7 @@
   <ItemGroup>
     <Resource Include="Resources\Estados.xml" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

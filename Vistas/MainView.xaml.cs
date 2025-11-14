@@ -11,7 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Vistas.Docentes;
-
+using Vistas.Inscripciones;
 using Vistas.Cursos;
 
 using Vistas.Usuarios;
@@ -56,6 +56,11 @@ namespace Vistas
         private void MenuEstadoCursos_Click(object sender, RoutedEventArgs e)
         {
             AreaContenido.Content = new EstadosCursosView();
+        }
+
+        private void MenuInscripciones_Click(object sender, RoutedEventArgs e)
+        {
+            AreaContenido.Content = new GestionDeInscripcionesUC();
         }
     }
 }

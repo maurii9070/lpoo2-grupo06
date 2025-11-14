@@ -19,6 +19,65 @@ namespace ClasesBase.Repositories
             {
                 return _cursos;
             }
+/*            public List<Curso> ObtenerCursosProgramados() {
+
+                List<Curso> cursos = new List<Curso>();
+                string sql= "SELECT c.Cur_ID, c.Cur_Nombre, c.Cur_Descripcion, c.Cur_Cupo, c.Cur_FechaInicio, c.Cur_FechaFin, c.Est_ID, c.Doc_ID" +
+                            "FROM Curso c " +
+                            "INNER JOIN Estado e ON c.Est_ID = e.Est_ID "+
+                            "WHERE e.Est_Nombre = 'Programado'";
+
+
+                DataTable dt = DatabaseHelper.ExecuteQuery(sql);
+
+                foreach (DataRow row in dt.Rows)
+                {
+                    cursos.Add(new Curso
+                    {
+                        Cur_ID = Convert.ToInt32(row["Cur_ID"]),
+                        Cur_Nombre= row["Cur_Nombre"].ToString(),
+                        Cur_Descripcion = row["Cur_Descripcion"].ToString(),
+                        Cur_Cupo = Convert.ToInt32(row["Cur_Cupo"]),
+                        Cur_FechaInicio = Convert.ToDateTime(row["Cur_FechaInicio"]),
+                        Cur_FechaFin = Convert.ToDateTime(row["Cur_FechaFin"]),
+                        Est_ID = Convert.ToInt32(row["Est_ID"]),
+                        Doc_ID=Convert.ToInt32(row["Doc_ID"])
+                    });
+                }
+
+                return cursos;
+            
+            }*/
+            public List<Curso> ObtenerCursosProgramados()
+            {
+                List<Curso> cursos = new List<Curso>();
+
+                string sql = "SELECT c.Cur_ID, c.Cur_Nombre, c.Cur_Descripcion, c.Cur_Cupo, c.Cur_FechaInicio, c.Cur_FechaFin, c.Est_ID, c.Doc_ID " +
+                             "FROM Curso c " +
+                             "INNER JOIN Estado e ON c.Est_ID = e.Est_ID " +
+                             "WHERE e.Est_Nombre = 'programado'";
+
+                DataTable dt = DatabaseHelper.ExecuteQuery(sql);
+
+                foreach (DataRow row in dt.Rows)
+                {
+                    cursos.Add(new Curso
+                    {
+                        Cur_ID = Convert.ToInt32(row["Cur_ID"]),
+                        Cur_Nombre = row["Cur_Nombre"].ToString(),
+                        Cur_Descripcion = row["Cur_Descripcion"].ToString(),
+                        Cur_Cupo = Convert.ToInt32(row["Cur_Cupo"]),
+                        Cur_FechaInicio = Convert.ToDateTime(row["Cur_FechaInicio"]),
+                        Cur_FechaFin = Convert.ToDateTime(row["Cur_FechaFin"]),
+                        Est_ID = Convert.ToInt32(row["Est_ID"]),
+                        Doc_ID = Convert.ToInt32(row["Doc_ID"])
+                    });
+                }
+
+                return cursos;
+            }
+
+            
 
             public DataTable GetAll()
             {
