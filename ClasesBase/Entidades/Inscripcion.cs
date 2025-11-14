@@ -9,7 +9,7 @@ namespace ClasesBase.Entidades
     {
         public int Ins_ID { get; set; }
         public DateTime Ins_Fecha { get; set; }
-        public string Cur_ID { get; set; }
+        public int Cur_ID { get; set; }
         public int Alu_ID { get; set; }
         public int Est_ID { get; set; }
     }

@@ -18,6 +18,9 @@ namespace ClasesBase.Services
         {
             return EstadoRepository.ObtenerPorTipo("curso");
         }
-
+        public static List<Estado> ObtenerEstadosInscripcion() {
+            return EstadoRepository.ObtenerPorTipo("inscripcion");
+        }
+        
     }
 }

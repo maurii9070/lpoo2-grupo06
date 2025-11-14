@@ -1,0 +1,79 @@
+﻿<UserControl x:Class="Vistas.Inscripciones.GestionDeInscripcionesUC"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="400" d:DesignWidth="700">
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Barra superior -->
+        <Grid Grid.Row="0" Height="60">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Título -->
+            <TextBlock Grid.Column="0"
+                       Text="Gestión de Inscripciones"
+                       FontSize="28"
+                       FontWeight="Bold"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"/>
+
+            <!-- Botón Alta -->
+            <Button Grid.Column="1"
+                    Name="btnAltaInscripcion"
+                    Content="Alta Inscripcion"
+                    Width="180"
+                    Height="40"
+                    FontSize="16"
+                    Margin="0,0,20,0"
+                    Click="btnInscripcion_Click"/>
+        </Grid>
+
+        <!-- Separador -->
+        <Separator Grid.Row="0"
+                   VerticalAlignment="Bottom"
+                   Margin="10,0"/>
+
+        <!-- TEXTO "sin datos" -->
+        <TextBlock x:Name="txtSinDatos"
+               Text="No existen cursos cargados"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"
+               FontSize="16"
+               Foreground="Gray" Margin="254,136,254,182" Grid.Row="1" 
+               Visibility="Collapsed"/>
+
+        <!-- DataGrid -->
+        <DataGrid Name="dgInscripciones"
+          IsReadOnly="True"
+          AutoGenerateColumns="False"
+          GridLinesVisibility="Horizontal"
+          Margin="0,59,0,0"
+          ColumnWidth="SizeToCells" Grid.RowSpan="2">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" 
+                            Binding="{Binding ID}" Width="60" />
+                    <DataGridTextColumn Header="Fecha" 
+                            Binding="{Binding FECHA, StringFormat=dd/MM/yyyy}" Width="70" />
+                    <DataGridTextColumn Header="ID Curso" 
+                            Binding="{Binding ID_Curso}" Width="80" />
+                    <DataGridTextColumn Header="Curso" 
+                            Binding="{Binding Curso}" Width="170" />
+                    <DataGridTextColumn Header="ID Alumno" 
+                            Binding="{Binding ID_Alumno}" Width="80" />
+                    <DataGridTextColumn Header="Alumno" 
+                            Binding="{Binding Alumno}" Width="170" />
+                    <DataGridTextColumn Header="Estado" 
+                            Binding="{Binding Estado}" Width="Auto" />
+                </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>

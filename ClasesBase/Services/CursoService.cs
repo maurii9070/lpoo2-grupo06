@@ -16,7 +16,9 @@ namespace ClasesBase.Services
         {
             return _repo.GetAll();   // _repo es CursoRepository
         }
-
+        public List<Curso> getCursosProgramados() {
+            return _repo.ObtenerCursosProgramados();
+        }
         public void GuardarCurso(Curso curso)
         {
             // faltarian validaciones

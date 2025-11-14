@@ -52,7 +52,7 @@
 
             <!-- Otras secciones -->
             <Expander Header="Inscripciones" IsExpanded="False" Margin="5 0 5 5">
-                <Button Content="Gestionar Inscripciones" Height="30" Margin="15 5"/>
+                <Button Content="Gestionar Inscripciones" Height="30" Margin="15 5" Click="MenuInscripciones_Click"/>
             </Expander>
 
             <Expander Header="Reportes" IsExpanded="False" Margin="5 0 5 5">
