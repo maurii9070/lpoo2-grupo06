@@ -79,5 +79,42 @@ namespace ClasesBase.Repositories
             return inscripciones;
         }
 
+        // MÉTODO NUEVO 1: Trae las inscripciones de un alumno con el estado del curso y de la inscripción
+        public DataTable ObtenerInscripcionesPorAlumno(int aluID)
+        {
+            string sql = @"SELECT 
+                             i.Ins_ID, 
+                             c.Cur_Nombre, 
+                             e_cur.Est_Nombre AS EstadoCurso, 
+                             e_ins.Est_Nombre AS EstadoInscripcion
+                           FROM Inscripcion i
+                           INNER JOIN Curso c ON i.Cur_ID = c.Cur_ID
+                           INNER JOIN Estado e_cur ON c.Est_ID = e_cur.Est_ID
+                           INNER JOIN Estado e_ins ON i.Est_ID = e_ins.Est_ID
+                           WHERE i.Alu_ID = @aluID";
+
+            SqlParameter[] parametros = {
+                new SqlParameter("@aluID", aluID)
+            };
+
+            return DatabaseHelper.ExecuteQuery(sql, parametros);
+        }
+
+        // MÉTODO NUEVO 2: Actualiza el estado de la inscripción buscándo el ID del estado por nombre
+        public void ActualizarEstadoInscripcion(int insID, string nuevoEstadoNombre)
+        {
+            // Usamos una subconsulta para obtener el ID del estado 'Confirmado' dinámicamente
+            string sql = @"UPDATE Inscripcion 
+                           SET Est_ID = (SELECT Est_ID FROM Estado WHERE Est_Nombre = @nombreEstado)
+                           WHERE Ins_ID = @insID";
+
+            SqlParameter[] parametros = {
+                new SqlParameter("@insID", insID),
+                new SqlParameter("@nombreEstado", nuevoEstadoNombre)
+            };
+
+            DatabaseHelper.ExecuteNonQuery(sql, parametros);
+        }
+
     }
 }

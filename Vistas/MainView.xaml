@@ -50,9 +50,12 @@
                 </StackPanel>
             </Expander>
 
-            <!-- Otras secciones -->
-            <Expander Header="Inscripciones" IsExpanded="False" Margin="5 0 5 5">
-                <Button Content="Gestionar Inscripciones" Height="30" Margin="15 5" Click="MenuInscripciones_Click"/>
+            <!-- Sección Inscripciones -->
+            <Expander Header="Inscripciones" IsExpanded="True" Margin="5 0 5 5">
+                <StackPanel Margin="15 5">
+                    <Button Content="Gestionar Inscripciones" Height="30" Margin="0 2" Click="MenuInscripciones_Click"/>
+                    <Button Content="Acreditar Cursos" Height="30" Margin="0 2" Click="Button_Click" />
+                </StackPanel>                
             </Expander>
 
             <Expander Header="Reportes" IsExpanded="False" Margin="5 0 5 5">

@@ -62,5 +62,10 @@ namespace Vistas
         {
             AreaContenido.Content = new GestionDeInscripcionesUC();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            AreaContenido.Content = new Vistas.Inscripciones.AcreditacionUC();
+        }
     }
 }
