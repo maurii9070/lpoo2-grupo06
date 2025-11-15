@@ -90,17 +90,13 @@ namespace Vistas.Cursos
             txtCupoEdit.Text = "";
             cboEstadoEdit.SelectedValue = null;
             cboDocenteEdit.SelectedValue = null;
-            // --- LÍNEAS NUEVAS ---
             dpFechaIniEdit.SelectedDate = null;
             dpFechaFinEdit.SelectedDate = null;
-            // --- FIN LÍNEAS NUEVAS ---
             lblMensaje.Text = "";
         }
 
         private void dgCursos_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            // Este código es correcto, PERO depende de que
-            // CursoRepository.GetAll() incluya 'Est_ID' y 'Doc_ID'
             if (dgCursos.SelectedItem != null)
             {
                 // Habilitamos el panel
@@ -117,12 +113,10 @@ namespace Vistas.Cursos
                 txtNombreEdit.Text = fila["Cur_Nombre"].ToString();
                 txtDescEdit.Text = fila["Cur_Descripcion"].ToString();
                 txtCupoEdit.Text = fila["Cur_Cupo"].ToString();
-
-                // Estas líneas causan el error si 'Est_ID' o 'Doc_ID' no están en la consulta
                 cboEstadoEdit.SelectedValue = (int)fila["Est_ID"];
                 cboDocenteEdit.SelectedValue = (int)fila["Doc_ID"];
 
-                // --- LÍNEAS NUEVAS (Lógica de Fechas Mejorada) ---
+                // --- INICIO: Lógica de Validación de Fechas ---
 
                 // 1. Cargar las fechas del curso seleccionado
                 DateTime fechaInicio = (DateTime)fila["Cur_FechaInicio"];
@@ -130,29 +124,27 @@ namespace Vistas.Cursos
                 dpFechaFinEdit.SelectedDate = (DateTime)fila["Cur_FechaFin"];
 
                 // 2. Lógica para "Fecha Inicio"
-                // El usuario no puede mover la fecha de inicio a un día anterior a HOY,
-                // A MENOS QUE el curso ya haya comenzado en el pasado.
+                // No se puede mover la fecha de inicio a un día anterior a HOY,
+                // A MENOS QUE el curso ya haya comenzado.
                 if (fechaInicio < DateTime.Today)
                 {
-                    // Si el curso ya comenzó, la fecha mínima seleccionable
-                    // es la fecha en que comenzó (no se puede mover más al pasado).
+                    // Si el curso ya comenzó, la fecha mínima es su fecha de inicio.
                     dpFechaIniEdit.DisplayDateStart = fechaInicio;
                 }
                 else
                 {
-                    // Si el curso es futuro, la fecha mínima seleccionable es HOY.
+                    // Si el curso es futuro, la fecha mínima es HOY.
                     dpFechaIniEdit.DisplayDateStart = DateTime.Today;
                 }
 
                 // 3. Lógica para "Fecha Fin"
-                // (Esta lógica ya la tenías, solo la movemos aquí para agrupar)
                 // La fecha de fin no puede ser anterior a la de inicio.
                 dpFechaFinEdit.DisplayDateStart = fechaInicio;
-                // --- FIN LÍNEAS NUEVAS ---
+                // --- FIN: Lógica de Validación de Fechas ---
             }
         }
 
-        // --- MÉTODO NUEVO (para la lógica de fechas) ---
+        // --- Método para la lógica de fechas (bloquea Fecha Fin) ---
         private void dpFechaIniEdit_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
             if (dpFechaIniEdit.SelectedDate.HasValue && dpFechaFinEdit != null)
@@ -167,7 +159,6 @@ namespace Vistas.Cursos
                 }
             }
         }
-        // --- FIN MÉTODO NUEVO ---
 
         private void btnGuardarEdicion_Click(object sender, RoutedEventArgs e)
         {
@@ -180,7 +171,7 @@ namespace Vistas.Cursos
                 return;
             }
 
-            // --- VALIDACIÓN DE FECHAS ---
+            // --- VALIDACIÓN DE FECHAS (al guardar) ---
             if (dpFechaIniEdit.SelectedDate == null || dpFechaFinEdit.SelectedDate == null)
             {
                 MessageBox.Show("Debe seleccionar una fecha de inicio y fin.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -200,10 +191,8 @@ namespace Vistas.Cursos
                 Cur_Nombre = txtNombreEdit.Text,
                 Cur_Descripcion = txtDescEdit.Text,
                 Cur_Cupo = cupo,
-                // --- LÍNEAS NUEVAS ---
                 Cur_FechaInicio = dpFechaIniEdit.SelectedDate.Value,
                 Cur_FechaFin = dpFechaFinEdit.SelectedDate.Value,
-                // --- FIN LÍNEAS NUEVAS ---
                 Est_ID = (int)cboEstadoEdit.SelectedValue,
                 Doc_ID = (int)cboDocenteEdit.SelectedValue
             };

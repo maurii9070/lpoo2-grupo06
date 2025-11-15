@@ -79,7 +79,9 @@
                         <DataGridTextColumn Header="Estado" Binding="{Binding Estado}" Width="*"/>
                         <DataGridTextColumn Header="Inicio" Binding="{Binding Cur_FechaInicio, StringFormat=dd/MM/yyyy}" Width="*"/>
 
-                        <!-- IDs ocultos que usaremos para editar -->
+                        <DataGridTextColumn Header="Fin" Binding="{Binding Cur_FechaFin, StringFormat=dd/MM/yyyy}" Width="*"/>
+
+                        <!-- IDs ocultos -->
                         <DataGridTextColumn Header="Est_ID" Binding="{Binding Est_ID}" Visibility="Collapsed"/>
                         <DataGridTextColumn Header="Doc_ID" Binding="{Binding Doc_ID}" Visibility="Collapsed"/>
                         <DataGridTextColumn Header="Descripcion" Binding="{Binding Cur_Descripcion}" Visibility="Collapsed"/>
