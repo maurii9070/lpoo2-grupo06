@@ -24,5 +24,15 @@ namespace ClasesBase.Services
             return inscripcionRepository.getAll();
         }
 
+        public DataTable ObtenerInscripcionesDeAlumno(int aluID)
+        {
+            return inscripcionRepository.ObtenerInscripcionesPorAlumno(aluID);
+        }
+
+        public void AcreditarInscripcion(int insID)
+        {
+            inscripcionRepository.ActualizarEstadoInscripcion(insID, "confirmado");
+        }
+
     }
 }

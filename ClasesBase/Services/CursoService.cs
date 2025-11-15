@@ -24,5 +24,11 @@ namespace ClasesBase.Services
             // faltarian validaciones
             _repo.Add(curso);
         }
+
+        public void ActualizarCurso(Curso curso)
+        {
+            // Aquí irían validaciones de negocio para la actualización
+            _repo.Update(curso);
+        }
     }
 }

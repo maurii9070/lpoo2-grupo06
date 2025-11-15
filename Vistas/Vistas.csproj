@@ -64,6 +64,9 @@
     <Compile Include="Cursos\EstadosCursosView.xaml.cs">
       <DependentUpon>EstadosCursosView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Inscripciones\AcreditacionUC.xaml.cs">
+      <DependentUpon>AcreditacionUC.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Inscripciones\AltaInscripcionView.xaml.cs">
       <DependentUpon>AltaInscripcionView.xaml</DependentUpon>
     </Compile>
@@ -124,6 +127,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Inscripciones\AcreditacionUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Inscripciones\AltaInscripcionView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -171,6 +178,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Resources\AlumnosPlantilla.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\CursosStyles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
