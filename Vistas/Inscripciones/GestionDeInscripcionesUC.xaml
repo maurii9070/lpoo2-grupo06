@@ -18,7 +18,6 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
-            <!-- Título -->
             <TextBlock Grid.Column="0"
                        Text="Gestión de Inscripciones"
                        FontSize="28"
@@ -26,17 +25,25 @@
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center"/>
 
-            <!-- Botón Alta -->
-            <Button Grid.Column="1"
-                    Name="btnAltaInscripcion"
-                    Content="Alta Inscripcion"
-                    Width="180"
-                    Height="40"
-                    FontSize="16"
-                    Margin="0,0,20,0"
-                    Click="btnInscripcion_Click"/>
+            <StackPanel Grid.Column="1" 
+                        Orientation="Horizontal" 
+                        VerticalAlignment="Center"
+                        Margin="0,0,20,0"> <Button Name="btnAnularInscripcion"
+                        Content="Anular Inscripción"
+                        Width="180"
+                        Height="40"
+                        FontSize="16"
+                        Background="DarkRed"
+                        Foreground="White"
+                        Click="btnAnularInscripcion_Click"
+                        Margin="0,0,10,0"/> <Button Name="btnAltaInscripcion"
+                        Content="Alta Inscripcion"
+                        Width="180"
+                        Height="40"
+                        FontSize="16"
+                        Click="btnInscripcion_Click"/>
+            </StackPanel>
         </Grid>
-
         <!-- Separador -->
         <Separator Grid.Row="0"
                    VerticalAlignment="Bottom"

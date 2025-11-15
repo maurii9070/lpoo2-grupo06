@@ -1,0 +1,101 @@
+﻿<Window x:Class="Vistas.Inscripciones.AnularInscripcionView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Anular Inscripción" Height="510" Width="492"
+        WindowStartupLocation="CenterScreen"
+        Background="#F0F0F0">
+    <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Anular Inscripción de Alumno" 
+                   Grid.Row="0" 
+                   FontSize="20" 
+                   FontWeight="Bold" 
+                   Foreground="#333"
+                   Margin="0,0,0,15"/>
+
+        <GroupBox Grid.Row="1" Header="1. Buscar Alumno" FontWeight="Bold" Padding="10">
+            <StackPanel>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Text="DNI o ID del Alumno:" 
+                               VerticalAlignment="Center" 
+                               Margin="0,0,10,0"/>
+
+                    <TextBox x:Name="txtDNI_o_ID" 
+                             Grid.Column="1" 
+                             VerticalContentAlignment="Center"
+                             Height="28"
+                             FontSize="14"/>
+
+                    <Button x:Name="btnBuscar" 
+                            Content="Buscar" 
+                            Grid.Column="2" 
+                            Width="80" 
+                            Height="28"
+                            Margin="10,0,0,0" 
+                            Click="btnBuscar_Click"/>
+                </Grid>
+
+                <TextBlock x:Name="txtNombreAlumno" 
+                           Margin="0,10,0,0" 
+                           FontSize="14" 
+                           Foreground="DarkBlue"
+                           TextWrapping="Wrap"
+                           HorizontalAlignment="Center"/>
+            </StackPanel>
+        </GroupBox>
+
+        <GroupBox Grid.Row="2" 
+                  x:Name="gbCursos"
+                  Header="2. Seleccionar Inscripción a Anular" 
+                  FontWeight="Bold" 
+                  Padding="10" 
+                  Margin="0,10,0,0"
+                  IsEnabled="False">
+
+            <StackPanel>
+                <TextBlock Text="Inscripciones activas:"/>
+                <ComboBox x:Name="cmbCursos" 
+                          Margin="0,5,0,0" 
+                          Height="30"
+                          FontSize="14"
+                          VerticalContentAlignment="Center"/>
+            </StackPanel>
+        </GroupBox>
+
+        <StackPanel Grid.Row="3" 
+                    Orientation="Horizontal" 
+                    HorizontalAlignment="Right" 
+                    Margin="0,15,0,0">
+
+            <Button x:Name="btnAnular" 
+                    Content="Anular Inscripción" 
+                    Width="140" 
+                    Height="35"
+                    FontSize="14"
+                    Background="DarkRed" 
+                    Foreground="White"
+                    Click="btnAnular_Click"
+                    IsEnabled="False"/>
+
+            <Button x:Name="btnCerrar" 
+                    Content="Cerrar" 
+                    Width="100" 
+                    Height="35" 
+                    Margin="10,0,0,0"
+                    IsCancel="True"
+                    Click="btnCerrar_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>
