@@ -48,5 +48,17 @@ namespace Vistas.Inscripciones
                 CargarGrilla();
             }
         }
+        private void btnAnularInscripcion_Click(object sender, RoutedEventArgs e)
+        {
+            // Creamos y mostramos la nueva ventana
+            AnularInscripcionView anularForm = new AnularInscripcionView();
+
+            // Usamos ShowDialog() para que la ventana principal se bloquee
+            // Si devuelve 'true', significa que se anuló algo y debemos refrescar la grilla.
+            if (anularForm.ShowDialog() == true)
+            {
+                CargarGrilla(); // Actualizamos la grilla para ver el estado "Cancelado"
+            }
+        }
     }
 }

@@ -70,6 +70,9 @@
     <Compile Include="Inscripciones\AltaInscripcionView.xaml.cs">
       <DependentUpon>AltaInscripcionView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Inscripciones\AnularInscripcionView.xaml.cs">
+      <DependentUpon>AnularInscripcionView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Inscripciones\GestionDeInscripcionesUC.xaml.cs">
       <DependentUpon>GestionDeInscripcionesUC.xaml</DependentUpon>
     </Compile>
@@ -129,6 +132,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Inscripciones\AltaInscripcionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Inscripciones\AnularInscripcionView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
