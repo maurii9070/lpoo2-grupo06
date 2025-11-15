@@ -77,10 +77,12 @@ namespace ClasesBase.Repositories
                 return cursos;
             }
 
-            
+
 
             public DataTable GetAll()
             {
+                // CORRECCIÓN: Nos aseguramos que la consulta SQL
+                // seleccione los IDs de estado y docente.
                 string sql = "SELECT c.Cur_ID, " +
                              "c.Cur_Nombre, " +
                              "c.Cur_Descripcion, " +
@@ -88,7 +90,11 @@ namespace ClasesBase.Repositories
                              "c.Cur_FechaInicio, " +
                              "c.Cur_FechaFin, " +
                              "e.Est_Nombre AS Estado, " +
-                             "d.Doc_Apellido + ', ' + d.Doc_Nombre AS Docente " +
+                             "d.Doc_Apellido + ', ' + d.Doc_Nombre AS Docente, " +
+                    // --- ESTAS DOS LÍNEAS SON CRUCIALES ---
+                             "c.Est_ID, " +
+                             "c.Doc_ID " +
+                    // ------------------------------------
                              "FROM Curso c " +
                              "INNER JOIN Estado e ON c.Est_ID = e.Est_ID " +
                              "INNER JOIN Docente d ON c.Doc_ID = d.Doc_ID " +
@@ -113,6 +119,36 @@ namespace ClasesBase.Repositories
                 new SqlParameter("@Est",  c.Est_ID),
                 new SqlParameter("@Doc",  c.Doc_ID)
             };
+                DatabaseHelper.ExecuteNonQuery(sql, p);
+            }
+
+            public void Update(Curso c)
+            {
+                string sql = "UPDATE Curso " +
+                             "SET Cur_Nombre = @Nom, " +
+                             "Cur_Descripcion = @Desc, " +
+                             "Cur_Cupo = @Cupo, " +
+                    // --- LÍNEAS NUEVAS ---
+                             "Cur_FechaInicio = @FIni, " +
+                             "Cur_FechaFin = @FFin, " +
+                    // --- FIN LÍNEAS NUEVAS ---
+                             "Est_ID = @Est, " +
+                             "Doc_ID = @Doc " +
+                             "WHERE Cur_ID = @ID";
+
+                SqlParameter[] p =
+                {
+                    new SqlParameter("@Nom",  c.Cur_Nombre),
+                    new SqlParameter("@Desc", c.Cur_Descripcion),
+                    new SqlParameter("@Cupo", c.Cur_Cupo),
+                    // --- LÍNEAS NUEVAS ---
+                    new SqlParameter("@FIni", c.Cur_FechaInicio),
+                    new SqlParameter("@FFin", c.Cur_FechaFin),
+                    // --- FIN LÍNEAS NUEVAS ---
+                    new SqlParameter("@Est",  c.Est_ID),
+                    new SqlParameter("@Doc",  c.Doc_ID),
+                    new SqlParameter("@ID",   c.Cur_ID) // Importante
+                };
                 DatabaseHelper.ExecuteNonQuery(sql, p);
             }
         }

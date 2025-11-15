@@ -4,73 +4,153 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d"
-             d:DesignHeight="400" d:DesignWidth="700">
+             d:DesignHeight="500" d:DesignWidth="800">
 
     <Grid Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <!-- Título y Botón Alta -->
             <RowDefinition Height="*"/>
+            <!-- Contenido (Grilla y Edición) -->
         </Grid.RowDefinitions>
 
         <!-- Barra superior -->
-        <Grid Grid.Row="0" Height="60">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
+        <DockPanel Grid.Row="0" Margin="10" Height="50">
+            <!-- Botón Alta -->
+            <Button Name="BtnAltaCurso"
+                    Content="Alta Curso"
+                    DockPanel.Dock="Right"
+                    Width="160"
+                    Height="40"
+                    FontSize="16"
+                    Background="#FF2196F3" 
+                    Foreground="White"
+                    Click="BtnAltaCurso_Click"/>
 
             <!-- Título -->
-            <TextBlock Grid.Column="0"
-                       Text="Gestión de Cursos"
+            <TextBlock Text="Gestión de Cursos"
                        FontSize="28"
                        FontWeight="Bold"
                        VerticalAlignment="Center"
-                       HorizontalAlignment="Center"/>
-
-            <!-- Botón Alta -->
-            <Button Grid.Column="1"
-                    Name="BtnAltaCurso"
-                    Content="Alta Curso"
-                    Width="180"
-                    Height="40"
-                    FontSize="16"
-                    Margin="0,0,20,0"
-                    Click="BtnAltaCurso_Click"/>
-        </Grid>
+                       HorizontalAlignment="Left"
+                       Foreground="#FF1E3A8A"/>
+        </DockPanel>
 
         <!-- Separador -->
-        <Separator Grid.Row="0"
-                   VerticalAlignment="Bottom"
-                   Margin="10,0"/>
+        <Separator Grid.Row="0" VerticalAlignment="Bottom" Margin="10,0"/>
 
-        <!-- TEXTO "sin datos" -->
-        <TextBlock x:Name="txtSinDatos"
-               Text="No existen cursos cargados"
-               HorizontalAlignment="Center"
-               VerticalAlignment="Center"
-               FontSize="16"
-               Foreground="Gray" Margin="254,136,254,182" Grid.Row="1" 
-               Visibility="Collapsed"/>
+        <!-- Contenido Principal (Grilla y Panel de Edición) -->
+        <Grid Grid.Row="1" Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <!-- 66% para la grilla -->
+                <ColumnDefinition Width="Auto"/>
+                <!-- Separador -->
+                <ColumnDefinition Width="1*"/>
+                <!-- 33% para la edición -->
+            </Grid.ColumnDefinitions>
 
-        <!-- DataGrid -->
-        <DataGrid Grid.Row="1"
-          Name="dgCursos"
-          IsReadOnly="True"
-          AutoGenerateColumns="False"
-          GridLinesVisibility="Horizontal"
-          Margin="10,10,10,10"
-          ColumnWidth="SizeToCells">
-            <!-- ancho = contenido -->
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="ID" Binding="{Binding Cur_ID}" Visibility="Collapsed"/>
-                <DataGridTextColumn Header="Nombre" Binding="{Binding Cur_Nombre}" Width="SizeToCells" />
-                <DataGridTextColumn Header="Descripción" Binding="{Binding Cur_Descripcion}" Width="SizeToCells"/>
-                <DataGridTextColumn Header="Docente" Binding="{Binding Docente}" Width="SizeToCells"/>
-                <DataGridTextColumn Header="Cupo" Binding="{Binding Cur_Cupo}" Width="*"/>
-                <DataGridTextColumn Header="Estado" Binding="{Binding Estado}" Width="*"/>
-                <DataGridTextColumn Header="Inicio" Binding="{Binding Cur_FechaInicio, StringFormat=dd/MM/yyyy}" Width="*"/>
-                <DataGridTextColumn Header="Fin" Binding="{Binding Cur_FechaFin, StringFormat=dd/MM/yyyy}" Width="*"/>              
-            </DataGrid.Columns>
-        </DataGrid>
+            <!-- Columna 0: Grilla y Texto "Sin Datos" -->
+            <Grid Grid.Column="0">
+                <!-- TEXTO "sin datos" -->
+                <TextBlock x:Name="txtSinDatos"
+                       Text="No existen cursos cargados"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       FontSize="16"
+                       Foreground="Gray"
+                       Visibility="Collapsed"/>
+
+                <!-- DataGrid -->
+                <DataGrid Name="dgCursos"
+                          IsReadOnly="True"
+                          AutoGenerateColumns="False"
+                          GridLinesVisibility="Horizontal"
+                          Margin="0,0,10,0"
+                          ColumnWidth="SizeToCells"
+                          SelectionMode="Single"
+                          SelectionChanged="dgCursos_SelectionChanged">
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ID" Binding="{Binding Cur_ID}" Visibility="Collapsed"/>
+                        <DataGridTextColumn Header="Nombre" Binding="{Binding Cur_Nombre}" Width="SizeToCells" />
+                        <DataGridTextColumn Header="Docente" Binding="{Binding Docente}" Width="SizeToCells"/>
+                        <DataGridTextColumn Header="Cupo" Binding="{Binding Cur_Cupo}" Width="*"/>
+                        <DataGridTextColumn Header="Estado" Binding="{Binding Estado}" Width="*"/>
+                        <DataGridTextColumn Header="Inicio" Binding="{Binding Cur_FechaInicio, StringFormat=dd/MM/yyyy}" Width="*"/>
+
+                        <!-- IDs ocultos que usaremos para editar -->
+                        <DataGridTextColumn Header="Est_ID" Binding="{Binding Est_ID}" Visibility="Collapsed"/>
+                        <DataGridTextColumn Header="Doc_ID" Binding="{Binding Doc_ID}" Visibility="Collapsed"/>
+                        <DataGridTextColumn Header="Descripcion" Binding="{Binding Cur_Descripcion}" Visibility="Collapsed"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+
+            <!-- Separador Vertical -->
+            <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" Background="LightGray"/>
+
+            <!-- Columna 2: Panel de Edición -->
+            <GroupBox Grid.Column="2" x:Name="gbEditarCurso" Header="Editar Curso" 
+                      Margin="10,0,0,0" Padding="10" IsEnabled="False">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <!-- Nombre -->
+                        <RowDefinition Height="Auto"/>
+                        <!-- Desc -->
+                        <RowDefinition Height="Auto"/>
+                        <!-- Cupo -->
+                        <RowDefinition Height="Auto"/>
+                        <!-- Docente -->
+                        <RowDefinition Height="Auto"/>
+                        <!-- Estado -->
+                        <RowDefinition Height="Auto"/>
+                        <!-- NUEVO: Fecha Inicio -->
+                        <RowDefinition Height="Auto"/>
+                        <!-- NUEVO: Fecha Fin -->
+                        <RowDefinition Height="*"/>
+                        <!-- Mensaje -->
+                        <RowDefinition Height="Auto"/>
+                        <!-- Botón -->
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Text="Nombre:" Grid.Row="0" Grid.Column="0" Margin="5" VerticalAlignment="Center" FontWeight="Bold"/>
+                    <TextBox   x:Name="txtNombreEdit" Grid.Row="0" Grid.Column="1" Margin="5"/>
+
+                    <TextBlock Text="Descripción:" Grid.Row="1" Grid.Column="0" Margin="5" VerticalAlignment="Top" FontWeight="Bold"/>
+                    <TextBox   x:Name="txtDescEdit"    Grid.Row="1" Grid.Column="1" Margin="5"
+                               AcceptsReturn="True" TextWrapping="Wrap" Height="60" VerticalScrollBarVisibility="Auto"/>
+
+                    <TextBlock Text="Cupo:" Grid.Row="2" Grid.Column="0" Margin="5" VerticalAlignment="Center" FontWeight="Bold"/>
+                    <TextBox   x:Name="txtCupoEdit"   Grid.Row="2" Grid.Column="1" Margin="5" PreviewTextInput="txtCupoEdit_PreviewTextInput"/>
+
+                    <TextBlock Text="Docente:" Grid.Row="3" Grid.Column="0" Margin="5" VerticalAlignment="Center" FontWeight="Bold"/>
+                    <ComboBox  x:Name="cboDocenteEdit" Grid.Row="3" Grid.Column="1" Margin="5"/>
+
+                    <TextBlock Text="Estado:" Grid.Row="4" Grid.Column="0" Margin="5" VerticalAlignment="Center" FontWeight="Bold"/>
+                    <ComboBox  x:Name="cboEstadoEdit" Grid.Row="4" Grid.Column="1" Margin="5"/>
+
+                    <TextBlock Text="Fecha Inicio:" Grid.Row="5" Grid.Column="0" Margin="5" VerticalAlignment="Center" FontWeight="Bold"/>
+                    <DatePicker x:Name="dpFechaIniEdit" Grid.Row="5" Grid.Column="1" Margin="5"
+                                SelectedDateChanged="dpFechaIniEdit_SelectedDateChanged"/>
+
+                    <TextBlock Text="Fecha Fin:" Grid.Row="6" Grid.Column="0" Margin="5" VerticalAlignment="Center" FontWeight="Bold"/>
+                    <DatePicker x:Name="dpFechaFinEdit" Grid.Row="6" Grid.Column="1" Margin="5"/>
+
+                    <TextBlock x:Name="lblMensaje" Grid.Row="7" Grid.ColumnSpan="2" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Green" FontWeight="Bold"/>
+
+                    <Button x:Name="btnGuardarEdicion" Content="Guardar Cambios" Grid.Row="8" Grid.ColumnSpan="2" 
+                            HorizontalAlignment="Right" Width="140" Height="35" Margin="5"
+                            Background="Green" Foreground="White" FontWeight="Bold"
+                            Click="btnGuardarEdicion_Click"/>
+                </Grid>
+            </GroupBox>
+
+        </Grid>
     </Grid>
 </UserControl>
