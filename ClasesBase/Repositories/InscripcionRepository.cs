@@ -9,7 +9,7 @@ using ClasesBase.Database;
 
 namespace ClasesBase.Repositories
 {
-    class InscripcionRepository
+    public class InscripcionRepository
     {
         public void addInscripcion(Inscripcion inscripcion)
         {
@@ -79,5 +79,56 @@ namespace ClasesBase.Repositories
             return inscripciones;
         }
 
+        /// <summary>
+        /// Busca todas las inscripciones activas (no canceladas) de un alumno por su DNI.
+        /// </summary>
+        public DataTable getInscripcionesActivasPorDNI(string dni)
+        {
+            string sql =
+                "SELECT " +
+                "   i.Ins_ID AS ID, " +
+                "   c.Cur_Nombre AS Curso, " +
+                "   i.Cur_ID AS ID_Curso " +
+                "FROM Inscripcion i " +
+                "INNER JOIN Alumno a ON i.Alu_ID = a.Alu_ID " +
+                "INNER JOIN Curso c ON i.Cur_ID = c.Cur_ID " +
+                "INNER JOIN Estado e ON i.Est_ID = e.Est_ID " +
+                "WHERE a.Alu_DNI = @dni AND e.Est_Nombre <> 'Cancelado'"; // <> significa 'distinto de'
+
+            SqlParameter[] parameters = {
+                new SqlParameter("@dni", dni)
+            };
+
+            return DatabaseHelper.ExecuteQuery(sql, parameters);
+        }
+
+        /// <summary>
+        /// Actualiza el estado de una inscripción a "Cancelado".
+        /// </summary>
+        public void anularInscripcion(int ins_ID)
+        {
+            // Primero, buscamos el ID del estado "Cancelado"
+            // Esto es más robusto que "hardcodear" un ID (ej. 3)
+            string queryEstado = "SELECT Est_ID FROM Estado WHERE Est_Nombre = 'Cancelado'";
+            DataTable dt = DatabaseHelper.ExecuteQuery(queryEstado);
+
+            if (dt.Rows.Count == 0)
+            {
+                // Manejar el error: no existe el estado "Cancelado" en la BD
+                throw new Exception("No se encontró el estado 'Cancelado' en la base de datos.");
+            }
+
+            int estadoCanceladoID = Convert.ToInt32(dt.Rows[0]["Est_ID"]);
+
+            // Ahora, actualizamos la inscripción
+            string queryUpdate = "UPDATE Inscripcion SET Est_ID = @estadoID WHERE Ins_ID = @inscripcionID";
+
+            SqlParameter[] parameters = {
+                new SqlParameter("@estadoID", estadoCanceladoID),
+                new SqlParameter("@inscripcionID", ins_ID)
+            };
+
+            DatabaseHelper.ExecuteNonQuery(queryUpdate, parameters);
+        }
     }
 }
