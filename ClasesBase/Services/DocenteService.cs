@@ -18,5 +18,10 @@ namespace ClasesBase.Services
         {
             return _repo.GetAll();
         }
+
+        public void AgregarDocente(Docente docente)
+        {
+            _repo.Add(docente);
+        }
     }
 }

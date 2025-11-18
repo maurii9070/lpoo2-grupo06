@@ -84,7 +84,7 @@ namespace Vistas.Cursos
             // (Asumo que tienes DocenteService por tu AltaCursoView)
             DataTable dtDoc = new DocenteService().ObtenerDocentes();
             cboDocenteEdit.ItemsSource = dtDoc.DefaultView;
-            cboDocenteEdit.DisplayMemberPath = "Display";
+            cboDocenteEdit.DisplayMemberPath = "NombreCompleto";
             cboDocenteEdit.SelectedValuePath = "Doc_ID";
         }
 
