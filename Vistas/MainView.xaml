@@ -3,8 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Menu Principal" Height="600" Width="1010" 
         WindowStartupLocation="CenterScreen" 
-        ResizeMode="NoResize"
-        >
+        ResizeMode="NoResize">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -22,9 +21,27 @@
 
         <!-- ===== Header ===== -->
         <Border Grid.ColumnSpan="2" Background="#FF003366" CornerRadius="0 0 8 8">
-            <TextBlock Text="Sistema de Gestión Académica"
-                       Foreground="White" FontSize="20" FontWeight="Bold"
-                       VerticalAlignment="Center" Margin="20 10"/>
+            <DockPanel Margin="20 10" LastChildFill="False">
+                <!-- Título del Sistema -->
+                <TextBlock Text="Sistema de Gestión Académica"
+                           Foreground="White" FontSize="20" FontWeight="Bold"
+                           VerticalAlignment="Center" DockPanel.Dock="Left"/>
+
+                <!-- Información del Usuario (A la derecha) -->
+                <StackPanel DockPanel.Dock="Right" VerticalAlignment="Center">
+                    <!-- Nombre Grande -->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <TextBlock Text="Usuario: " Foreground="#FFCCCCCC" FontSize="12" VerticalAlignment="Bottom" Margin="0,0,5,2"/>
+                        <TextBlock x:Name="txtUsuarioHeader" Text="Invitado" 
+                                   Foreground="White" FontWeight="Bold" FontSize="16"/>
+                    </StackPanel>
+
+                    <!-- Rol Pequeño -->
+                    <TextBlock x:Name="txtRolHeader" Text="Rol: -" 
+                               Foreground="#FF99CCFF" FontSize="12" FontStyle="Italic" 
+                               HorizontalAlignment="Right" Margin="0,2,0,0"/>
+                </StackPanel>
+            </DockPanel>
         </Border>
 
         <!-- ===== Aside (Menú Lateral) ===== -->
@@ -55,7 +72,7 @@
                 <StackPanel Margin="15 5">
                     <Button Content="Gestionar Inscripciones" Height="30" Margin="0 2" Click="MenuInscripciones_Click"/>
                     <Button Content="Acreditar Cursos" Height="30" Margin="0 2" Click="Button_Click" />
-                </StackPanel>                
+                </StackPanel>
             </Expander>
 
             <Expander Header="Reportes" IsExpanded="False" Margin="5 0 5 5">
@@ -66,7 +83,29 @@
         <!-- ===== Content Area (dinámico) ===== -->
         <Border Grid.Row="1" Grid.Column="1" Background="White"
                 BorderBrush="#FFCCCCCC" BorderThickness="1" CornerRadius="4" Margin="0 5 5 5">
-            <ContentControl x:Name="AreaContenido" Margin="10"/>
+
+            <!-- 
+               Contenido por defecto: Mensaje de Bienvenida.
+            -->
+            <ContentControl x:Name="AreaContenido" Margin="10">
+                <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <StackPanel HorizontalAlignment="Center">
+                        <!-- Saludo Grande -->
+                        <TextBlock x:Name="txtBienvenida" 
+                                   Text="¡Bienvenido!" 
+                                   FontSize="36" FontWeight="Bold" Foreground="#FF1E3A8A"
+                                   HorizontalAlignment="Center" Margin="0,0,0,15"/>
+
+                        <!-- Mensaje detallado -->
+                        <TextBlock x:Name="txtBienvenidaDetalle" 
+                                   Text="Cargando información..." 
+                                   FontSize="18" Foreground="#555"
+                                   HorizontalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center"
+                                   MaxWidth="600" LineHeight="28"/>
+                    </StackPanel>
+                </Grid>
+            </ContentControl>
+
         </Border>
     </Grid>
 </Window>
