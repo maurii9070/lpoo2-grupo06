@@ -64,6 +64,9 @@
     <Compile Include="Cursos\EstadosCursosView.xaml.cs">
       <DependentUpon>EstadosCursosView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Cursos\Resultados.xaml.cs">
+      <DependentUpon>Resultados.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Inscripciones\AcreditacionUC.xaml.cs">
       <DependentUpon>AcreditacionUC.xaml</DependentUpon>
     </Compile>
@@ -116,6 +119,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Alumnos\GestionAlumnoUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Cursos\Resultados.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

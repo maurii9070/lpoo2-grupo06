@@ -167,5 +167,29 @@ namespace ClasesBase.Repositories
 
             DatabaseHelper.ExecuteNonQuery(queryUpdate, parameters);
         }
+
+        //Obtiene los cursos de un alumno en especifico
+        public DataTable GetResultadosPorAlumno(int id_alumno)
+        {
+            string query =
+                    "SELECT " +
+                    "c.Cur_Nombre AS \"NombreCurso\", " +
+                    "d.Doc_Nombre + ' ' + d.Doc_Apellido AS \"NombreDocente\", " +
+                    "c.Cur_FechaFin AS \"FechaFin\", " +
+                    "e.Est_Nombre AS \"Estado\" " +
+                    "FROM Inscripcion i " +
+                    "JOIN Curso c ON i.Cur_ID = c.Cur_ID " +
+                    "JOIN Docente d ON c.Doc_ID = d.Doc_ID " +
+                    "JOIN Estado e ON c.Est_ID = e.Est_ID " +
+                    "WHERE i.Alu_ID = @aluId";
+
+
+            SqlParameter[] parameters = {
+                new SqlParameter("@aluId", id_alumno)
+            };
+
+            return DatabaseHelper.ExecuteQuery(query, parameters);
+        }
+
     }
 }

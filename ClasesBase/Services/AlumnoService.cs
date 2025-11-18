@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Data;
 using System.Text;
 using ClasesBase.Entidades;
 using ClasesBase.Repositories;
@@ -21,10 +22,11 @@ namespace ClasesBase.Services
             repo.AddAlumno(alumno);
         }
 
-        public List<Alumno> ObtenerAlumnos()
+        public DataTable ObtenerAlumnos()
         {
             return repo.GetAlumnos();
         }
+
         public Alumno ObtenerAlumnoPorDNI(string dni)
         {
             return repo.GetAlumnoByDNI(dni);

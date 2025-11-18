@@ -29,25 +29,18 @@ namespace ClasesBase.Repositories
         }
 
         // Obtener todos los alumnos
-        public List<Alumno> GetAlumnos()
+        public DataTable GetAlumnos()
         {
-            string query = "SELECT * FROM Alumno";
-            DataTable dt = DatabaseHelper.ExecuteQuery(query);
+            string query = "SELECT Alu_ID, " + 
+                           "Alu_DNI, " + 
+                           "Alu_Apellido, " + 
+                           "Alu_Nombre, " + 
+                           "Alu_Email, " +
+                           "Alu_Apellido + ', ' + Alu_Nombre AS Display " +
+                           "FROM Alumno " + 
+                           "ORDER BY Alu_Apellido, Alu_Nombre";
 
-            List<Alumno> alumnos = new List<Alumno>();
-            foreach (DataRow row in dt.Rows)
-            {
-                Alumno alumno = new Alumno
-                {
-                    Alu_DNI = row["Alu_DNI"].ToString(),
-                    Alu_Apellido = row["Alu_Apellido"].ToString(),
-                    Alu_Nombre = row["Alu_Nombre"].ToString(),
-                    Alu_Email = row["Alu_Email"].ToString()
-                };
-                alumnos.Add(alumno);
-            }
-
-            return alumnos;
+            return DatabaseHelper.ExecuteQuery(query);
         }
 
         //Obtener alumno por DNI

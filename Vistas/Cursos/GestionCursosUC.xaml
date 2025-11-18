@@ -16,6 +16,7 @@
 
         <!-- Barra superior -->
         <DockPanel Grid.Row="0" Margin="10" Height="50">
+
             <!-- Botón Alta -->
             <Button Name="BtnAltaCurso"
                     Content="Alta Curso"
@@ -25,7 +26,18 @@
                     FontSize="16"
                     Background="#FF2196F3" 
                     Foreground="White"
+                    Margin="10,0,0,0"
                     Click="BtnAltaCurso_Click"/>
+
+            <!-- Botón Resultados -->
+            <Button Name="BtnResultadoCurso"
+                    Content="Resultados cursos"
+                    DockPanel.Dock="Right"
+                    Width="160"
+                    Height="40"
+                    FontSize="16"
+                    Background="#FF2196F3" 
+                    Foreground="White" Click="BtnResultadoCursos_Click" />
 
             <!-- Título -->
             <TextBlock Text="Gestión de Cursos"

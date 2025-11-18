@@ -1,38 +1,57 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Data; // Para DataTable
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using ClasesBase.Services; // Usamos el Service directamente
 
 namespace Vistas.Alumnos
 {
-    /// <summary>
-    /// Interaction logic for GestionAlumnoView.xaml
-    /// </summary>
     public partial class GestionAlumnoView : UserControl
     {
+        private AlumnoService _service;
+
         public GestionAlumnoView()
         {
             InitializeComponent();
+            _service = new AlumnoService();
+            CargarGrilla();
         }
-        private void btnAltaAlumno_Click (object sender, RoutedEventArgs e)
+
+        private void CargarGrilla()
+        {
+            // Obtenemos el DataTable desde el servicio
+            DataTable dt = _service.ObtenerAlumnos();
+            dgAlumnos.ItemsSource = dt.DefaultView;
+        }
+
+        private void btnAltaAlumno_Click(object sender, RoutedEventArgs e)
         {
             AltaAlumno alta = new AltaAlumno();
-            alta.Show();
+            // Usamos ShowDialog para esperar a que cierre
+            if (alta.ShowDialog() == true)
+            {
+                // Si se guardó correctamente, refrescamos
+                CargarGrilla();
+            }
+            // Si canceló o cerró, también podríamos refrescar por seguridad:
+            else
+            {
+                CargarGrilla();
+            }
         }
 
         private void btnEditarAlumno_Click(object sender, RoutedEventArgs e)
         {
             EditarAlumno editar = new EditarAlumno();
-            editar.Show();
+            // Usamos ShowDialog para esperar a que cierre y refrescar la lista
+            if (editar.ShowDialog() == true)
+            {
+                CargarGrilla();
+            }
+            else
+            {
+                CargarGrilla();
+            }
         }
     }
 }

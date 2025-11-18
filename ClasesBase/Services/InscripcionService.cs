@@ -34,5 +34,10 @@ namespace ClasesBase.Services
             inscripcionRepository.ActualizarEstadoInscripcion(insID, "confirmado");
         }
 
+        public DataTable GetResultadosPorAlumno(int id_alumno)
+        {
+            return inscripcionRepository.GetResultadosPorAlumno(id_alumno);
+        }
+
     }
 }
