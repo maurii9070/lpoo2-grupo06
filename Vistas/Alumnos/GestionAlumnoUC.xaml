@@ -4,53 +4,90 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="338" d:DesignWidth="300">
-    <Grid Margin="15" Height="312">
+             d:DesignHeight="500" d:DesignWidth="800">
+
+    <Grid Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="249*"/>
-            <RowDefinition Height="26"/>
+            <!-- Encabezado (Título + Botones) -->
+            <RowDefinition Height="*"/>
+            <!-- Grilla -->
         </Grid.RowDefinitions>
 
-        <!-- Header -->
-        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,15">
+        <!-- 1. ENCABEZADO TIPO "DASHBOARD" -->
+        <DockPanel Grid.Row="0" Margin="20,20,20,10" LastChildFill="False">
+
+            <!-- Título a la izquierda -->
             <TextBlock Text="GESTIÓN DE ALUMNOS" 
-                           FontSize="20" 
-                           FontWeight="Bold" 
-                           Foreground="#FF1565C0"/>
-        </StackPanel>
+                       FontSize="28" 
+                       FontWeight="Bold" 
+                       Foreground="#FF1E3A8A"
+                       VerticalAlignment="Center"
+                       DockPanel.Dock="Left"/>
 
-        <!-- Botones de Acción -->
-        <StackPanel Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="35,30,35,159">
-            <Button x:Name="btnAltaAlumno" 
-                        Content="ALTA DE ALUMNO" 
+            <!-- Contenedor de Botones a la derecha -->
+            <StackPanel Orientation="Horizontal" DockPanel.Dock="Right">
+                <Button x:Name="btnAltaAlumno" 
+                        Content="+ Nuevo Alumno" 
                         Click="btnAltaAlumno_Click"
-                        Background="#FF2196F3" 
-                        Foreground="White" 
-                        FontWeight="Bold" 
-                        Height="40" 
-                        Width="200" 
-                        Margin="0,10"
-                        BorderBrush="#FF1976D2"
-                        BorderThickness="1"/>
+                        Background="#FF2196F3" Foreground="White" FontWeight="Bold"
+                        Height="40" Width="150" Margin="10,0,0,0"
+                        BorderThickness="0">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="5"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
 
-        </StackPanel>
-        <StackPanel Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="35,108,35,81">
-            <Button x:Name="btnEditarAlumno" 
-                        Content="EDITAR ALUMNO" 
+                <Button x:Name="btnEditarAlumno" 
+                        Content="Editar Alumno" 
                         Click="btnEditarAlumno_Click"
-                        Background="#FF2196F3" 
-                        Foreground="White" 
-                        FontWeight="Bold" 
-                        Height="40" 
-                        Width="200" 
-                        Margin="0,10"
-                        BorderBrush="#FF1976D2"
-                        BorderThickness="1"/>
+                        Background="#FF1E3A8A" Foreground="White" FontWeight="Bold"
+                        Height="40" Width="150" Margin="10,0,0,0"
+                        BorderThickness="0">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="5"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+            </StackPanel>
+        </DockPanel>
 
-        </StackPanel>
-        <!-- Panel de contenido dinámico -->
-        <ContentControl x:Name="contentControl" Grid.Row="2" Margin="0,15,0,0"/>
+        <!-- Separador visual debajo del encabezado -->
+        <Separator Grid.Row="0" VerticalAlignment="Bottom" Margin="20,0" Background="#FFEEEEEE"/>
+
+        <!-- 2. GRILLA DE ALUMNOS -->
+        <DataGrid Grid.Row="1" x:Name="dgAlumnos"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  GridLinesVisibility="Horizontal"
+                  HeadersVisibility="Column"
+                  Background="White"
+                  BorderThickness="0"
+                  Margin="20,10,20,20"
+                  RowHeight="30"
+                  FontSize="14">
+
+            <!-- Estilo básico para el encabezado de la grilla -->
+            <DataGrid.ColumnHeaderStyle>
+                <Style TargetType="DataGridColumnHeader">
+                    <Setter Property="Background" Value="#F5F5F5"/>
+                    <Setter Property="FontWeight" Value="Bold"/>
+                    <Setter Property="Padding" Value="10,8"/>
+                    <Setter Property="Foreground" Value="#333"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                </Style>
+            </DataGrid.ColumnHeaderStyle>
+
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding Alu_ID}" Width="60"/>
+                <DataGridTextColumn Header="DNI" Binding="{Binding Alu_DNI}" Width="120" FontWeight="SemiBold"/>
+                <DataGridTextColumn Header="Apellido" Binding="{Binding Alu_Apellido}" Width="*"/>
+                <DataGridTextColumn Header="Nombre" Binding="{Binding Alu_Nombre}" Width="*"/>
+                <DataGridTextColumn Header="Email" Binding="{Binding Alu_Email}" Width="200"/>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </UserControl>
-

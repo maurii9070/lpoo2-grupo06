@@ -4,7 +4,7 @@
         xmlns:svc="clr-namespace:ClasesBase.Services;assembly=ClasesBase"
         Title="EditarAlumno" Height="504" Width="410" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Window.Resources>
-        <!-- Template de validación -->
+        <!-- Template de validación (MANTENIDO) -->
         <ControlTemplate x:Key="TextBoxErrorTemplate">
             <DockPanel>
                 <Ellipse DockPanel.Dock="Right" Margin="2,0" Width="10" Height="10">
@@ -19,7 +19,7 @@
             </DockPanel>
         </ControlTemplate>
 
-        <!-- Estilo para mostrar errores -->
+        <!-- Estilo para mostrar errores (MANTENIDO) -->
         <Style x:Key="EstiloError" TargetType="TextBox">
             <Setter Property="Margin" Value="4,4,10,4" />
             <Setter Property="Validation.ErrorTemplate" Value="{StaticResource TextBoxErrorTemplate}" />
@@ -43,12 +43,14 @@
 
                 <Border CornerRadius="6" Background="White" Padding="15" Margin="0 0 0 10">
                     <StackPanel>
+                        <!-- CAMBIO AQUÍ: Búsqueda por ID o DNI -->
                         <StackPanel Orientation="Horizontal" Margin="0 8">
-                            <TextBlock Text="ID Alumno:" Width="100" FontWeight="SemiBold" VerticalAlignment="Center"/>
-                            <TextBox x:Name="txtID" Width="115" Padding="4" />
+                            <TextBlock Text="ID o DNI:" Width="100" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                            <TextBox x:Name="txtBusqueda" Width="115" Padding="4" />
                             <Button Content="Buscar" Width="80" Margin="10 0" Click="Buscar_Click"/>
                         </StackPanel>
 
+                        <!-- Campos MANTENIDOS con tus validaciones originales -->
                         <StackPanel Orientation="Horizontal" Margin="0 8">
                             <TextBlock Text="DNI:" Width="100" FontWeight="SemiBold" VerticalAlignment="Center"/>
                             <TextBox Width="200" Padding="4" Style="{StaticResource EstiloError}"
@@ -88,4 +90,3 @@
         </Grid>
     </Border>
 </Window>
-
