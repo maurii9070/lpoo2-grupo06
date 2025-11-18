@@ -64,6 +64,12 @@ namespace Vistas.Cursos
             }
         }
 
+        private void BtnResultadoCursos_Click(object sender, RoutedEventArgs e)
+        {
+            Resultados resultados = new Resultados();
+            resultados.ShowDialog();
+        }
+
         // --- SECCIÓN DE EDICIÓN ---
 
         private void CargarCombosEdit()
@@ -217,5 +223,7 @@ namespace Vistas.Cursos
         {
             e.Handled = !char.IsDigit(e.Text, 0);
         }
+
+   
     }
 }
