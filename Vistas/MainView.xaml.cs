@@ -1,38 +1,54 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using Vistas.Docentes;
 using Vistas.Inscripciones;
 using Vistas.Cursos;
-
 using Vistas.Usuarios;
 using Vistas.Alumnos;
+using ClasesBase.Entidades; // Necesario para usar la clase Usuario
 
 namespace Vistas
 {
-    /// <summary>
-    /// Interaction logic for MainView.xaml
-    /// </summary>
     public partial class MainView : Window
     {
+        // Constructor por defecto (Solo para pruebas)
         public MainView()
         {
             InitializeComponent();
+        }
+
+        // Constructor PRINCIPAL: Recibe el objeto Usuario desde el Login
+        public MainView(Usuario usuario)
+        {
+            InitializeComponent();
+            ConfigurarBienvenida(usuario);
+        }
+
+        private void ConfigurarBienvenida(Usuario u)
+        {
+            if (u != null)
+            {
+                // --- HEADER (Arriba a la derecha) ---
+                txtUsuarioHeader.Text = u.Usu_ApellidoNombre;
+                txtRolHeader.Text = "Rol: " + u.RolNombre; // Mostramos el rol aquí también
+
+                // --- MENSAJE CENTRAL (Pantalla de inicio) ---
+
+                // Título grande: ¡Bienvenido, [Nombre]!
+                txtBienvenida.Text = "¡Bienvenido, " + u.Usu_ApellidoNombre + "!";
+
+                // Subtítulo: Texto explicativo sin repetir el nombre innecesariamente
+                txtBienvenidaDetalle.Text = "Has ingresado al Sistema de Gestión Académica con el perfil de " + u.RolNombre + ".\n" +
+                                            "Utiliza el menú lateral izquierdo para acceder a las diferentes secciones.";
+            }
         }
 
         private void btnSalir_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
         }
+
+        // --- Navegación del Menú ---
 
         private void MenuDocentes_Click(object sender, RoutedEventArgs e)
         {
@@ -48,7 +64,8 @@ namespace Vistas
         {
             AreaContenido.Content = new GestionAlumnoView();
         }
-        private void MenuUsuarios_Click(object sender, RoutedEventArgs e )
+
+        private void MenuUsuarios_Click(object sender, RoutedEventArgs e)
         {
             AreaContenido.Content = new GestionUsuariosUC();
         }
