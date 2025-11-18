@@ -4,15 +4,99 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="500" d:DesignWidth="800">
+
     <Grid Background="White">
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-            <TextBlock Text="Gestión de Docentes" FontSize="28" FontWeight="Bold"
-                       Margin="0 0 0 30" HorizontalAlignment="Center"/>
-            
-            <Button x:Name="BtnAltaDocente" Content="Alta Docente"
-                    Width="200" Height="50" FontSize="18"
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- Encabezado -->
+            <RowDefinition Height="*"/>
+            <!-- Contenido Principal -->
+        </Grid.RowDefinitions>
+
+        <!-- 1. Encabezado con Título y Botón Alta -->
+        <DockPanel Grid.Row="0" Margin="15" LastChildFill="False">
+            <TextBlock Text="Gestión de Docentes y Cursos" 
+                       FontSize="26" FontWeight="Bold" 
+                       Foreground="#FF1E3A8A"
+                       VerticalAlignment="Center"/>
+
+            <Button x:Name="BtnAltaDocente" 
+                    Content="+ Nuevo Docente"
+                    DockPanel.Dock="Right"
+                    Width="160" Height="40"
+                    Background="#FF2196F3" Foreground="White" FontWeight="Bold"
                     Click="BtnAltaDocente_Click"/>
-        </StackPanel>
+        </DockPanel>
+
+        <!-- Separador -->
+        <Separator Grid.Row="0" VerticalAlignment="Bottom" Margin="10,0"/>
+
+        <!-- 2. Contenido (Lo que antes era la ventana GestionCursosPorDocenteView) -->
+        <Grid Grid.Row="1" Margin="15">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <!-- Combo Docente -->
+                <RowDefinition Height="*"/>
+                <!-- Grilla -->
+                <RowDefinition Height="Auto"/>
+                <!-- Botones Acción -->
+            </Grid.RowDefinitions>
+
+            <!-- Selector de Docente -->
+            <GroupBox Grid.Row="0" Header="Seleccionar Docente para gestionar sus cursos" 
+                      Padding="10" Margin="0,0,0,15" BorderBrush="#FF1976D2">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock Text="Docente:" VerticalAlignment="Center" FontWeight="Bold" Margin="0,0,10,0" FontSize="14"/>
+                    <ComboBox x:Name="cmbDocentes" 
+                              Width="400" 
+                              Height="30"
+                              FontSize="14"
+                              DisplayMemberPath="NombreCompleto"
+                              SelectedValuePath="Doc_ID"
+                              SelectionChanged="cmbDocentes_SelectionChanged"/>
+                </StackPanel>
+            </GroupBox>
+
+            <!-- Grilla de Cursos -->
+            <GroupBox Grid.Row="1" Header="Cursos Asignados" Padding="10" BorderBrush="#FF1976D2">
+                <DataGrid x:Name="dgvCursos"
+                          AutoGenerateColumns="False"
+                          IsReadOnly="True"
+                          SelectionMode="Single"
+                          SelectionChanged="dgvCursos_SelectionChanged"
+                          GridLinesVisibility="Horizontal"
+                          HeadersVisibility="Column"
+                          BorderThickness="1" BorderBrush="LightGray">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ID" Binding="{Binding ID_Curso}" Visibility="Hidden"/>
+                        <DataGridTextColumn Header="Curso" Binding="{Binding Curso}" Width="*" FontWeight="SemiBold"/>
+                        <DataGridTextColumn Header="Estado Actual" Binding="{Binding Estado}" Width="200"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </GroupBox>
+
+            <!-- Botones de Acción (Finalizar/Cancelar) -->
+            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,15,0,0">
+
+                <TextBlock Text="Acciones sobre el curso seleccionado:" VerticalAlignment="Center" Margin="0,0,15,0" FontStyle="Italic" Foreground="Gray"/>
+
+                <!-- Botón Finalizar -->
+                <Button x:Name="btnFinalizar" 
+                        Content="Finalizar Curso" 
+                        Width="150" Height="40" Margin="0,0,10,0"
+                        Background="#FF4CAF50" Foreground="White" FontWeight="Bold"
+                        IsEnabled="False"
+                        Click="btnFinalizar_Click"/>
+
+                <!-- Botón Cancelar -->
+                <Button x:Name="btnCancelar" 
+                        Content="Cancelar Curso" 
+                        Width="150" Height="40"
+                        Background="#FFF44336" Foreground="White" FontWeight="Bold"
+                        IsEnabled="False"
+                        Click="btnCancelar_Click"/>
+            </StackPanel>
+        </Grid>
     </Grid>
 </UserControl>

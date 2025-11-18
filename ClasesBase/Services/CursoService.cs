@@ -30,5 +30,28 @@ namespace ClasesBase.Services
             // Aquí irían validaciones de negocio para la actualización
             _repo.Update(curso);
         }
+
+
+
+
+
+
+        /// <summary>
+        /// Obtiene los cursos dictados por un docente. Necesario para el Punto 4.
+        /// </summary>
+        public DataTable ObtenerCursosPorDocente(int idDocente)
+        {
+            return _repo.GetCursosPorDocente(idDocente);
+        }
+
+        /// <summary>
+        /// Actualiza el estado del curso y delega la cancelación de inscripciones al repositorio.
+        /// </summary>
+        public void ActualizarEstadoCurso(int idCurso, string nuevoEstadoNombre)
+        {
+            _repo.ActualizarEstadoCurso(idCurso, nuevoEstadoNombre);
+        }
+
+
     }
 }

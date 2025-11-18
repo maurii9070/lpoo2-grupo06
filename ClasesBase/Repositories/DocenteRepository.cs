@@ -14,7 +14,7 @@ namespace ClasesBase.Repositories
         {
             string sql = "SELECT Doc_ID, " +
                          "Doc_DNI, " +
-                         "Doc_Apellido + ', ' + Doc_Nombre AS Display, " +
+                         "Doc_Apellido + ', ' + Doc_Nombre AS NombreCompleto, " + //Modicamos Display por NombreCompleto
                          "Doc_Email " +
                          "FROM " + TableName + " " +
                          "ORDER BY Doc_Apellido, Doc_Nombre";
