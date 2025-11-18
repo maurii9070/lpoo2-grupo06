@@ -151,6 +151,78 @@ namespace ClasesBase.Repositories
                 };
                 DatabaseHelper.ExecuteNonQuery(sql, p);
             }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            // Dentro de ClasesBase.Repositories.CursoRepository
+
+            /// <summary>
+            /// Obtiene los cursos dictados por un docente, con su estado en texto.
+            /// </summary>
+            public DataTable GetCursosPorDocente(int idDocente)
+            {
+                string sql =
+                    "SELECT " +
+                    "   c.Cur_ID AS ID_Curso, " +
+                    "   c.Cur_Nombre AS Curso, " +
+                    "   e.Est_Nombre AS Estado " +
+                    "FROM Curso c " +
+                    "INNER JOIN Estado e ON c.Est_ID = e.Est_ID " +
+                    "WHERE c.Doc_ID = @idDocente " +
+                    "ORDER BY c.Cur_Nombre";
+
+                SqlParameter[] parameters = {
+        new SqlParameter("@idDocente", idDocente)
+    };
+                return DatabaseHelper.ExecuteQuery(sql, parameters);
+            }
+
+            /// <summary>
+            /// Actualiza el estado de un curso. Si el estado es 'Cancelado', también cancela las inscripciones.
+            /// </summary>
+            public void ActualizarEstadoCurso(int idCurso, string nuevoEstadoNombre)
+            {
+                // 1. Obtener el ID del nuevo estado (usando tu método de búsqueda de estado)
+                string queryEstado = "SELECT Est_ID FROM Estado WHERE Est_Nombre = @nombreEstado";
+                SqlParameter[] estadoParams = { new SqlParameter("@nombreEstado", nuevoEstadoNombre) };
+                DataTable dt = DatabaseHelper.ExecuteQuery(queryEstado, estadoParams);
+
+                if (dt.Rows.Count == 0)
+                {
+                    throw new Exception("No se encontró el estado '" + nuevoEstadoNombre + "' en la base de datos.");
+                }
+                int nuevoEstadoID = Convert.ToInt32(dt.Rows[0]["Est_ID"]);
+
+                SqlParameter[] updateParams = {
+        new SqlParameter("@estadoID", nuevoEstadoID),
+        new SqlParameter("@cursoID", idCurso)
+    };
+
+                // 2. Actualizar el curso
+                string queryUpdateCurso = "UPDATE Curso SET Est_ID = @estadoID WHERE Cur_ID = @cursoID";
+                DatabaseHelper.ExecuteNonQuery(queryUpdateCurso, updateParams);
+
+                // 3. REGLA DE NEGOCIO: Actualizar las inscripciones si el curso fue CANCELADO.
+                if (nuevoEstadoNombre == "Cancelado")
+                {
+                    string queryUpdateInscripciones = "UPDATE Inscripcion SET Est_ID = @estadoID WHERE Cur_ID = @cursoID";
+                    DatabaseHelper.ExecuteNonQuery(queryUpdateInscripciones, updateParams);
+                }
+            }
+
+
         }
     }
 
