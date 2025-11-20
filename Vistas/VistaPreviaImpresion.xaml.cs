@@ -114,36 +114,102 @@ namespace Vistas
             titulo.Margin = new Thickness(0, 0, 0, 20);
             panel.Children.Add(titulo);
 
-            DataGrid grid = new DataGrid();
-            grid.ItemsSource = _usuarios; 
-            grid.AutoGenerateColumns = false;
-            grid.IsReadOnly = true;
+            // Crear Grid para la tabla
+            Grid tablaGrid = new Grid();
+            tablaGrid.Background = System.Windows.Media.Brushes.White;
 
-            // Columnas
-            grid.Columns.Add(new DataGridTextColumn {
-                Header = "Apellido y Nombre",
-                Binding = new Binding("Usu_ApellidoNombre"),
-                Width = new DataGridLength(250)
-            });
-            grid.Columns.Add(new DataGridTextColumn {
-                Header = "Nombre de Usuario",
-                Binding = new Binding("Usu_NombreUsuario"),
-                Width = new DataGridLength(150)
-            });
-            grid.Columns.Add(new DataGridTextColumn {
-                Header = "Rol",
-                Binding = new Binding("RolNombre"),
-                Width = new DataGridLength(150)
-            });
+            // Definir columnas
+            tablaGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(250) });
+            tablaGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(150) });
+            tablaGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(150) });
 
-            panel.Children.Add(grid);
+            // Fila de encabezado
+            tablaGrid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 
-            // "Arma" el documento fijo [cite: 435-441]
+            // Encabezados
+            Border headerBorder1 = CrearBordeConTexto("Apellido y Nombre", true);
+            Grid.SetRow(headerBorder1, 0);
+            Grid.SetColumn(headerBorder1, 0);
+            tablaGrid.Children.Add(headerBorder1);
+
+            Border headerBorder2 = CrearBordeConTexto("Nombre de Usuario", true);
+            Grid.SetRow(headerBorder2, 0);
+            Grid.SetColumn(headerBorder2, 1);
+            tablaGrid.Children.Add(headerBorder2);
+
+            Border headerBorder3 = CrearBordeConTexto("Rol", true);
+            Grid.SetRow(headerBorder3, 0);
+            Grid.SetColumn(headerBorder3, 2);
+            tablaGrid.Children.Add(headerBorder3);
+
+            // Agregar filas de datos
+            int filaActual = 1;
+            if (_usuarios != null)
+            {
+                foreach (Usuario user in _usuarios)
+                {
+                    tablaGrid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+
+                    Border cellBorder1 = CrearBordeConTexto(user.Usu_ApellidoNombre ?? "", false);
+                    Grid.SetRow(cellBorder1, filaActual);
+                    Grid.SetColumn(cellBorder1, 0);
+                    tablaGrid.Children.Add(cellBorder1);
+
+                    Border cellBorder2 = CrearBordeConTexto(user.Usu_NombreUsuario ?? "", false);
+                    Grid.SetRow(cellBorder2, filaActual);
+                    Grid.SetColumn(cellBorder2, 1);
+                    tablaGrid.Children.Add(cellBorder2);
+
+                    Border cellBorder3 = CrearBordeConTexto(user.RolNombre ?? "", false);
+                    Grid.SetRow(cellBorder3, filaActual);
+                    Grid.SetColumn(cellBorder3, 2);
+                    tablaGrid.Children.Add(cellBorder3);
+
+                    filaActual++;
+                }
+            }
+
+            panel.Children.Add(tablaGrid);
+
+            // "Arma" el documento fijo
             fixedPage.Children.Add(panel);
             ((IAddChild)pageContent).AddChild(fixedPage);
             fixedDoc.Pages.Add(pageContent);
 
             return fixedDoc;
+        }
+
+        private Border CrearBordeConTexto(string texto, bool esEncabezado)
+        {
+            Border border = new Border();
+            border.BorderBrush = System.Windows.Media.Brushes.Black;
+            border.BorderThickness = new Thickness(1);
+            border.Padding = new Thickness(5);
+
+            if (esEncabezado)
+            {
+                border.Background = System.Windows.Media.Brushes.Gainsboro;
+            }
+            else
+            {
+                border.Background = System.Windows.Media.Brushes.White;
+            }
+
+            TextBlock textBlock = new TextBlock();
+            textBlock.Text = texto;
+            textBlock.FontSize = 12;
+            textBlock.TextWrapping = TextWrapping.NoWrap;
+            textBlock.TextTrimming = TextTrimming.CharacterEllipsis;
+            textBlock.VerticalAlignment = VerticalAlignment.Center;
+
+            if (esEncabezado)
+            {
+                textBlock.FontWeight = FontWeights.Bold;
+            }
+
+            border.Child = textBlock;
+
+            return border;
         }
     }
 }
