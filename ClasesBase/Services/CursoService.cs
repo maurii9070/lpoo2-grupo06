@@ -33,6 +33,10 @@ namespace ClasesBase.Services
 
 
 
+        public bool CursoExistente(string nombre)
+        {
+            return _repo.CursoExistente(nombre);
+        }
 
 
 
