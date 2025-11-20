@@ -54,7 +54,7 @@ namespace Vistas.Cursos
             // --- Docentes ---
             DataTable dtDoc = new DocenteService().ObtenerDocentes();
             cboDocente.ItemsSource = dtDoc.DefaultView;
-            cboDocente.DisplayMemberPath = "Display";
+            cboDocente.DisplayMemberPath = "NombreCompleto";
             cboDocente.SelectedValuePath = "Doc_ID";
         }
 

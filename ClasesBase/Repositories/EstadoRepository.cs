@@ -44,6 +44,7 @@ namespace ClasesBase.Repositories
             SqlParameter[] p = { new SqlParameter("@TypeName", typeName ?? (object)DBNull.Value) };
             return DatabaseHelper.ExecuteQuery(sql, p);
         }
+       
 
         // Opcional: si querés una versión con objetos en vez de DataTable
         public static List<Estado> ObtenerPorTipo(string typeName)
