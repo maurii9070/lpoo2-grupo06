@@ -77,7 +77,19 @@ namespace ClasesBase.Repositories
                 return cursos;
             }
 
+            public bool CursoExistente(string nombre)
+            {
+                string sql = "SELECT TOP 1 1 " +
+                             "FROM Curso c " +
+                             "WHERE c.Cur_Nombre = @nombre";
 
+                SqlParameter[] p = {
+                    new SqlParameter("@nombre", nombre)
+                };
+
+                DataTable resultado = DatabaseHelper.ExecuteQuery(sql, p);
+                return resultado.Rows.Count > 0;
+            }
 
             public DataTable GetAll()
             {

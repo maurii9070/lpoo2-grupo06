@@ -19,6 +19,7 @@ namespace Vistas.Cursos
 {
     public partial class AltaCursoView : Window
     {
+        private CursoService cursoService = new CursoService();
         private int _idProgramado;
         public Curso CursoNuevo { get; private set; }
 
@@ -124,6 +125,12 @@ namespace Vistas.Cursos
                 return;
             }
 
+            if (cursoService.CursoExistente(txtNombre.Text.Trim()))
+            {
+                MessageBox.Show("Ya existe un curso con ese nombre", "Validación de Nombre", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
             // Arma el objeto
             CursoNuevo = new Curso
             {
@@ -137,7 +144,7 @@ namespace Vistas.Cursos
             };
 
             // Persiste
-            new CursoService().GuardarCurso(CursoNuevo);
+            cursoService.GuardarCurso(CursoNuevo);
 
             MessageBox.Show("Curso dado de alta:\n" + CursoNuevo.Cur_Nombre,
                             "Alta exitosa",
