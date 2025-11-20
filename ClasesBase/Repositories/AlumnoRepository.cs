@@ -102,5 +102,83 @@ namespace ClasesBase.Repositories
 
             DatabaseHelper.ExecuteNonQuery(query, parameters);
         }
+
+        // Verificar si existe un alumno con el mismo DNI
+        public bool ExisteDNI(string dni, int? alumnoIdExcluir = null)
+        {
+            string query = "SELECT COUNT(*) FROM Alumno WHERE Alu_DNI = @dni";
+            
+            if (alumnoIdExcluir.HasValue)
+            {
+                query += " AND Alu_ID != @id";
+            }
+
+            SqlParameter[] parametros;
+            if (alumnoIdExcluir.HasValue)
+            {
+                parametros = new SqlParameter[] {
+                    new SqlParameter("@dni", dni ?? (object)DBNull.Value),
+                    new SqlParameter("@id", alumnoIdExcluir.Value)
+                };
+            }
+            else
+            {
+                parametros = new SqlParameter[] {
+                    new SqlParameter("@dni", dni ?? (object)DBNull.Value)
+                };
+            }
+
+            DataTable dt = DatabaseHelper.ExecuteQuery(query, parametros);
+            
+            if (dt.Rows.Count > 0)
+            {
+                int count = Convert.ToInt32(dt.Rows[0][0]);
+                return count > 0;
+            }
+            
+            return false;
+        }
+
+        // Verificar si existe un alumno con el mismo Email
+        public bool ExisteEmail(string email, int? alumnoIdExcluir = null)
+        {
+            // Si el email está vacío, no validamos
+            if (string.IsNullOrWhiteSpace(email))
+            {
+                return false;
+            }
+
+            string query = "SELECT COUNT(*) FROM Alumno WHERE Alu_Email = @email";
+            
+            if (alumnoIdExcluir.HasValue)
+            {
+                query += " AND Alu_ID != @id";
+            }
+
+            SqlParameter[] parametros;
+            if (alumnoIdExcluir.HasValue)
+            {
+                parametros = new SqlParameter[] {
+                    new SqlParameter("@email", email),
+                    new SqlParameter("@id", alumnoIdExcluir.Value)
+                };
+            }
+            else
+            {
+                parametros = new SqlParameter[] {
+                    new SqlParameter("@email", email)
+                };
+            }
+
+            DataTable dt = DatabaseHelper.ExecuteQuery(query, parametros);
+            
+            if (dt.Rows.Count > 0)
+            {
+                int count = Convert.ToInt32(dt.Rows[0][0]);
+                return count > 0;
+            }
+            
+            return false;
+        }
     }
 }

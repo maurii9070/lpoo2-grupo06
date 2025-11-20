@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using System.Data.SqlClient;
 using ClasesBase.Database;
 using ClasesBase.Entidades;
@@ -37,6 +38,84 @@ namespace ClasesBase.Repositories
             };
 
             DatabaseHelper.ExecuteNonQuery(sql, p);
+        }
+
+        // Verificar si existe un docente con el mismo DNI
+        public bool ExisteDNI(string dni, int? docenteIdExcluir = null)
+        {
+            string sql = "SELECT COUNT(*) FROM " + TableName + " WHERE Doc_DNI = @dni";
+            
+            if (docenteIdExcluir.HasValue)
+            {
+                sql += " AND Doc_ID != @id";
+            }
+
+            SqlParameter[] parametros;
+            if (docenteIdExcluir.HasValue)
+            {
+                parametros = new SqlParameter[] {
+                    new SqlParameter("@dni", dni ?? (object)DBNull.Value),
+                    new SqlParameter("@id", docenteIdExcluir.Value)
+                };
+            }
+            else
+            {
+                parametros = new SqlParameter[] {
+                    new SqlParameter("@dni", dni ?? (object)DBNull.Value)
+                };
+            }
+
+            DataTable dt = DatabaseHelper.ExecuteQuery(sql, parametros);
+            
+            if (dt.Rows.Count > 0)
+            {
+                int count = Convert.ToInt32(dt.Rows[0][0]);
+                return count > 0;
+            }
+            
+            return false;
+        }
+
+        // Verificar si existe un docente con el mismo Email
+        public bool ExisteEmail(string email, int? docenteIdExcluir = null)
+        {
+            // Si el email está vacío, no validamos
+            if (string.IsNullOrWhiteSpace(email))
+            {
+                return false;
+            }
+
+            string sql = "SELECT COUNT(*) FROM " + TableName + " WHERE Doc_Email = @email";
+            
+            if (docenteIdExcluir.HasValue)
+            {
+                sql += " AND Doc_ID != @id";
+            }
+
+            SqlParameter[] parametros;
+            if (docenteIdExcluir.HasValue)
+            {
+                parametros = new SqlParameter[] {
+                    new SqlParameter("@email", email),
+                    new SqlParameter("@id", docenteIdExcluir.Value)
+                };
+            }
+            else
+            {
+                parametros = new SqlParameter[] {
+                    new SqlParameter("@email", email)
+                };
+            }
+
+            DataTable dt = DatabaseHelper.ExecuteQuery(sql, parametros);
+            
+            if (dt.Rows.Count > 0)
+            {
+                int count = Convert.ToInt32(dt.Rows[0][0]);
+                return count > 0;
+            }
+            
+            return false;
         }
     }
 }

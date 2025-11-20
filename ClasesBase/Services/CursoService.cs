@@ -52,6 +52,10 @@ namespace ClasesBase.Services
             _repo.ActualizarEstadoCurso(idCurso, nuevoEstadoNombre);
         }
 
+        public Curso ObtenerCurso(int id)
+        {
+            return _repo.GetCursoById(id);
+        }
 
     }
 }

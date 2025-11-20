@@ -12,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using ClasesBase.Repositories;
 using ClasesBase.Entidades;
+using ClasesBase.Services; // Agregamos el namespace de Services
 using System.Data;
 
 namespace Vistas.Inscripciones
@@ -23,6 +24,10 @@ namespace Vistas.Inscripciones
     {
         private AlumnoRepository _alumnoRepo;
         private InscripcionRepository _inscripcionRepo;
+
+        // Usamos el servicio para la anulación
+        private InscripcionService _inscripcionService;
+
         private Alumno _alumnoEncontrado;
 
         public AnularInscripcionView()
@@ -30,10 +35,11 @@ namespace Vistas.Inscripciones
             InitializeComponent();
             _alumnoRepo = new AlumnoRepository();
             _inscripcionRepo = new InscripcionRepository();
+            _inscripcionService = new InscripcionService(); // Inicializamos
         }
+
         private void btnBuscar_Click(object sender, RoutedEventArgs e)
         {
-            // 1. Tomamos el valor del único TextBox
             string input = txtDNI_o_ID.Text;
 
             if (string.IsNullOrEmpty(input))
@@ -44,28 +50,17 @@ namespace Vistas.Inscripciones
 
             LimpiarCampos();
 
-            // --- INICIO DE LA SECUENCIA "OR" ---
-
-            // 2. Primero, intentamos buscar por DNI (como string)
             _alumnoEncontrado = _alumnoRepo.GetAlumnoByDNI(input);
 
-            // 3. Si no se encontró (es null), intentamos buscar por ID
             if (_alumnoEncontrado == null)
             {
-                // Corrección para VS2010: Declarar 'id' primero
                 int id;
-
-                // Intentamos convertir el input a número
                 if (int.TryParse(input, out id))
                 {
-                    // Si se pudo convertir, buscamos por ese ID
                     _alumnoEncontrado = _alumnoRepo.GetAlumnoById(id);
                 }
             }
 
-            // --- FIN DE LA SECUENCIA "OR" ---
-
-            // 4. Validamos el resultado final
             if (_alumnoEncontrado == null)
             {
                 txtNombreAlumno.Text = "Alumno no encontrado (se buscó por DNI e ID).";
@@ -73,12 +68,9 @@ namespace Vistas.Inscripciones
                 return;
             }
 
-            // --- Si llegamos aquí, encontramos al alumno ---
-
             txtNombreAlumno.Text = "Alumno: " + _alumnoEncontrado.Alu_Apellido + ", " + _alumnoEncontrado.Alu_Nombre;
             txtNombreAlumno.Foreground = System.Windows.Media.Brushes.DarkBlue;
 
-            // Usamos el DNI del alumno encontrado para buscar sus cursos
             DataTable dtCursos = _inscripcionRepo.getInscripcionesActivasPorDNI(_alumnoEncontrado.Alu_DNI);
 
             if (dtCursos.Rows.Count == 0)
@@ -89,6 +81,9 @@ namespace Vistas.Inscripciones
 
             cmbCursos.ItemsSource = dtCursos.DefaultView;
             cmbCursos.DisplayMemberPath = "Curso";
+
+            // El ValuePath es "ID" (Ins_ID), pero necesitamos también el ID_Curso
+            // Lo sacaremos del SelectedItem al hacer click
             cmbCursos.SelectedValuePath = "ID";
 
             gbCursos.IsEnabled = true;
@@ -97,16 +92,20 @@ namespace Vistas.Inscripciones
 
         private void btnAnular_Click(object sender, RoutedEventArgs e)
         {
-            // Validación: ¿Se seleccionó un curso?
             if (cmbCursos.SelectedItem == null)
             {
                 MessageBox.Show("Por favor, seleccione la inscripción que desea anular.", "Validación", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
-            // Confirmación
+            // Obtenemos los datos de la fila seleccionada
+            DataRowView filaSeleccionada = (DataRowView)cmbCursos.SelectedItem;
+            string nombreCurso = filaSeleccionada["Curso"].ToString();
+            int idInscripcion = Convert.ToInt32(filaSeleccionada["ID"]);
+            int idCurso = Convert.ToInt32(filaSeleccionada["ID_Curso"]); // Obtenemos el ID del curso desde la fila
+
             MessageBoxResult result = MessageBox.Show(
-                "¿Está seguro de que desea anular la inscripción al curso '" + ((DataRowView)cmbCursos.SelectedItem)["Curso"] + "'?",
+                "¿Está seguro de que desea anular la inscripción al curso '" + nombreCurso + "'?",
                 "Confirmar Anulación",
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Question);
@@ -115,15 +114,13 @@ namespace Vistas.Inscripciones
             {
                 try
                 {
-                    // Obtener el ID de la inscripción (Ins_ID)
-                    int inscripcionID = (int)cmbCursos.SelectedValue;
-
-                    // Llamar al repositorio para anular
-                    _inscripcionRepo.anularInscripcion(inscripcionID);
+                    // CAMBIO IMPORTANTE:
+                    // Usamos el servicio en lugar del repositorio directo
+                    // y pasamos el idCurso para que pueda verificar el cupo.
+                    _inscripcionService.AnularInscripcion(idInscripcion, idCurso);
 
                     MessageBox.Show("¡Inscripción anulada exitosamente!", "Éxito", MessageBoxButton.OK, MessageBoxImage.Information);
 
-                    // Cerramos el formulario y avisamos que fue exitoso
                     this.DialogResult = true;
                     this.Close();
                 }

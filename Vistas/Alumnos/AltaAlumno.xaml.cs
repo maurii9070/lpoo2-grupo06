@@ -60,10 +60,18 @@ namespace Vistas.Alumnos
 
             if (result == MessageBoxResult.Yes)
             {
-                alumnoService.CrearAlumno(oAlumno);
+                try
+                {
+                    alumnoService.CrearAlumno(oAlumno);
 
-                MessageBox.Show("Alumno guardado con éxito.", "Alta Alumno", MessageBoxButton.OK, MessageBoxImage.Information);
-                this.Close();
+                    MessageBox.Show("Alumno guardado con éxito.", "Alta Alumno", MessageBoxButton.OK, MessageBoxImage.Information);
+                    this.DialogResult = true;
+                    this.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
             else
             {

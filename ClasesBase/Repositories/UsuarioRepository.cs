@@ -104,6 +104,41 @@ namespace ClasesBase.Repositories
             SqlParameter[] p = { new SqlParameter("@id", id) };
             DatabaseHelper.ExecuteNonQuery(sql, p);
         }
+
+        public bool ExisteUsuario(string nombreUsuario, int? usuarioIdExcluir = null)
+        {
+            string sql = "SELECT COUNT(*) FROM " + Table + " WHERE Usu_NombreUsuario = @nom";
+            
+            if (usuarioIdExcluir.HasValue)
+            {
+                sql += " AND Usu_ID != @id";
+            }
+
+            SqlParameter[] parametros;
+            if (usuarioIdExcluir.HasValue)
+            {
+                parametros = new SqlParameter[] {
+                    new SqlParameter("@nom", nombreUsuario),
+                    new SqlParameter("@id", usuarioIdExcluir.Value)
+                };
+            }
+            else
+            {
+                parametros = new SqlParameter[] {
+                    new SqlParameter("@nom", nombreUsuario)
+                };
+            }
+
+            DataTable dt = DatabaseHelper.ExecuteQuery(sql, parametros);
+            
+            if (dt.Rows.Count > 0)
+            {
+                int count = Convert.ToInt32(dt.Rows[0][0]);
+                return count > 0;
+            }
+            
+            return false;
+        }
     }
     
 }
