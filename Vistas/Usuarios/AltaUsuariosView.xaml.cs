@@ -75,12 +75,21 @@ namespace Vistas.Usuarios
                 _usuarioActual.Usu_ApellidoNombre = txtApellidoNombre.Text;
                 _usuarioActual.Rol_ID = (int)cmbRol.SelectedValue;
 
-                _service.ActualizarUsuario(_usuarioActual);
+                try
+                {
+                    _service.ActualizarUsuario(_usuarioActual);
 
-                MessageBox.Show("Usuario modificado correctamente.", "Éxito", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("Usuario modificado correctamente.", "Éxito", MessageBoxButton.OK, MessageBoxImage.Information);
 
-                this.DialogResult = true; // ✅ IMPORTANTE
-                this.Close();
+                    this.DialogResult = true; // ✅ IMPORTANTE
+                    this.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                    txtUsuario.Focus();
+                    txtUsuario.SelectAll();
+                }
                 return;
             }
 
@@ -111,16 +120,25 @@ namespace Vistas.Usuarios
 
             if (result == MessageBoxResult.Yes)
             {
-                _service.GuardarUsuario(nuevoUsuario);
+                try
+                {
+                    _service.GuardarUsuario(nuevoUsuario);
 
-                string mensajeExito = "USUARIO CREADO EXITOSAMENTE\n\n" +
-                                        "Usuario: " + nuevoUsuario.Usu_NombreUsuario + "\n" +
-                                        "Rol: " + rolDescripcion;
+                    string mensajeExito = "USUARIO CREADO EXITOSAMENTE\n\n" +
+                                            "Usuario: " + nuevoUsuario.Usu_NombreUsuario + "\n" +
+                                            "Rol: " + rolDescripcion;
 
-                MessageBox.Show(mensajeExito, "ALTA EXITOSA", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show(mensajeExito, "ALTA EXITOSA", MessageBoxButton.OK, MessageBoxImage.Information);
 
-                LimpiarCampos();
-                this.DialogResult = true; // ✅ IMPORTANTE: incluso después de limpiar, si se creó, hay cambio
+                    LimpiarCampos();
+                    this.DialogResult = true; // ✅ IMPORTANTE: incluso después de limpiar, si se creó, hay cambio
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                    txtUsuario.Focus();
+                    txtUsuario.SelectAll();
+                }
             }
         }
 
