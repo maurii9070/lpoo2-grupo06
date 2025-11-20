@@ -222,6 +222,31 @@ namespace ClasesBase.Repositories
                 }
             }
 
+            public Curso GetCursoById(int id)
+            {
+                string sql = "SELECT * FROM Curso WHERE Cur_ID = @id";
+                SqlParameter[] p = { new SqlParameter("@id", id) };
+
+                DataTable dt = DatabaseHelper.ExecuteQuery(sql, p);
+
+                if (dt.Rows.Count > 0)
+                {
+                    DataRow row = dt.Rows[0];
+                    return new Curso
+                    {
+                        Cur_ID = Convert.ToInt32(row["Cur_ID"]),
+                        Cur_Nombre = row["Cur_Nombre"].ToString(),
+                        Cur_Descripcion = row["Cur_Descripcion"].ToString(),
+                        Cur_Cupo = Convert.ToInt32(row["Cur_Cupo"]),
+                        Cur_FechaInicio = Convert.ToDateTime(row["Cur_FechaInicio"]),
+                        Cur_FechaFin = Convert.ToDateTime(row["Cur_FechaFin"]),
+                        Est_ID = Convert.ToInt32(row["Est_ID"]),
+                        Doc_ID = Convert.ToInt32(row["Doc_ID"])
+                    };
+                }
+                return null;
+            }
+
 
         }
     }
