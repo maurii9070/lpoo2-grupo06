@@ -29,28 +29,47 @@ namespace Vistas.Docentes
 
         private void btnGuardar_Click(object sender, RoutedEventArgs e)
         {
+            // Validación mínima
+            if (string.IsNullOrWhiteSpace(txtDni.Text) ||
+                string.IsNullOrWhiteSpace(txtApellido.Text) ||
+                string.IsNullOrWhiteSpace(txtNombre.Text))
             {
-                // Validación mínima
-                if (string.IsNullOrWhiteSpace(txtDni.Text) ||
-                    string.IsNullOrWhiteSpace(txtApellido.Text) ||
-                    string.IsNullOrWhiteSpace(txtNombre.Text))
-                {
-                    MessageBox.Show("Complete DNI, Apellido y Nombre.", "Faltan datos",
-                                  MessageBoxButton.OK, MessageBoxImage.Warning);
-                    return;
-                }
+                MessageBox.Show("Complete DNI, Apellido y Nombre.", "Faltan datos",
+                              MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
 
-                // Crear objeto
-                DocenteNuevo = new Docente
-                {
-                    Doc_DNI = txtDni.Text.Trim(),
-                    Doc_Apellido = txtApellido.Text.Trim(),
-                    Doc_Nombre = txtNombre.Text.Trim(),
-                    Doc_Email = txtEmail.Text.Trim()
-                };
+            // Crear objeto
+            DocenteNuevo = new Docente
+            {
+                Doc_DNI = txtDni.Text.Trim(),
+                Doc_Apellido = txtApellido.Text.Trim(),
+                Doc_Nombre = txtNombre.Text.Trim(),
+                Doc_Email = txtEmail.Text.Trim()
+            };
+
+            try
+            {
                 new DocenteService().GuardarDocente(DocenteNuevo);
+                MessageBox.Show("Docente guardado correctamente.", "Éxito",
+                              MessageBoxButton.OK, MessageBoxImage.Information);
                 DialogResult = true;   // cierra la ventana y devuelve true
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 
+                // Poner foco en el campo correspondiente
+                if (ex.Message.Contains("DNI"))
+                {
+                    txtDni.Focus();
+                    txtDni.SelectAll();
+                }
+                else if (ex.Message.Contains("email"))
+                {
+                    txtEmail.Focus();
+                    txtEmail.SelectAll();
+                }
             }
         }
     }
